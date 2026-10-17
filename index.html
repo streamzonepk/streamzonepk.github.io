@@ -119,6 +119,9 @@
     .chatgpt-logo { width: 39px; height: 39px; }
     .chatgpt-plan-details { color: #c9c6d8; font-size: .82rem; padding-left: 19px; margin: 0 0 18px; display: grid; gap: 7px; }
 .chatgpt-plan-details[hidden] { display: none !important; }
+    #netflix-features { max-height: 0; opacity: 0; transform: translateY(-8px); overflow: hidden; margin: 0; padding-top: 0; padding-bottom: 0; transition: max-height .42s ease, opacity .28s ease, transform .28s ease, margin .28s ease; }
+    #netflix-features.is-visible { max-height: 180px; opacity: 1; transform: translateY(0); margin: 0 0 18px; }
+    @media (prefers-reduced-motion: reduce) { #netflix-features { transition: none; } }
     .chatgpt-plan-details li::marker { color: var(--purple); }
     .chatgpt-plan-details strong { color: #f7f6fb; }
     .nordvpn { background: #fff; }
@@ -258,7 +261,7 @@
               <button type="button" class="device-option" data-netflix-option="Laptop screen" data-price="Rs. 400" aria-pressed="false"><span>💻 Laptop screen</span><strong>Rs. 400</strong></button>
               <button type="button" class="device-option" data-netflix-option="LED / Smart TV" data-price="Rs. 550" aria-pressed="false"><span>📺 LED / Smart TV</span><strong>Rs. 550</strong></button>
             </div>
-            <ul class="chatgpt-plan-details" id="netflix-features" hidden>
+            <ul class="chatgpt-plan-details" id="netflix-features">
               <li>Private screen</li>
               <li>UHD + 4K Resolution</li>
               <li>Can be logged into 1 device</li>
@@ -478,7 +481,7 @@
         item.setAttribute("aria-pressed", String(item === option));
       });
       netflixSelectionNote.textContent = "Selected: " + selectedNetflixPlan.device + " — " + selectedNetflixPlan.price;
-      document.getElementById("netflix-features").hidden = false;
+      document.getElementById("netflix-features").classList.add("is-visible");
       netflixOrderButton.textContent = "Order Netflix " + selectedNetflixPlan.device + " ↗";
       netflixOrderButton.disabled = false;
     });
