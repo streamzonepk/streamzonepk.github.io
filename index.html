@@ -479,6 +479,7 @@
       });
       netflixSelectionNote.textContent = "Selected: " + selectedNetflixPlan.device + " — " + selectedNetflixPlan.price;
       document.getElementById("netflix-features").hidden = false;
+      netflixOrderButton.textContent = "Order Netflix " + selectedNetflixPlan.device + " ↗";
       netflixOrderButton.disabled = false;
     });
   });
