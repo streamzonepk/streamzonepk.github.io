@@ -16,6 +16,13 @@
     section{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:20px 22px;margin:14px 0}h2{font-size:1.1rem;margin:0 0 8px}p,ul{margin:8px 0;color:#d5d2e1}li{margin:6px 0}.note{color:var(--muted);font-size:.9rem}
     footer{border-top:1px solid var(--border);padding:22px 0;color:var(--muted);font-size:.85rem}
   </style>
+  <style>
+    .float-wa{position:fixed;right:20px;bottom:20px;z-index:100;width:58px;height:58px;display:grid;place-items:center;border-radius:50%;background:#25d366;color:#062b14;box-shadow:0 10px 35px #0008;text-decoration:none}
+    .float-wa svg{width:28px;height:28px}
+    .float-wa:focus-visible{outline:3px solid #b9a1ff;outline-offset:4px}
+    @media(max-width:480px){.float-wa{right:14px;bottom:14px;width:54px;height:54px}}
+  </style>
+  
 </head>
 <body>
 <header><div class="wrap"><a class="brand" href="/">STREAM <span>ZONE</span></a></div></header>
@@ -32,5 +39,9 @@
   <p><a href="/">← Back to Stream Zone</a></p>
 </main>
 <footer><div class="wrap">Stream Zone · Independent storefront</div></footer>
+<a class="float-wa" href="https://wa.me/923094839648?text=Hi%20Stream%20Zone!%20I%27d%20like%20to%20ask%20about%20your%20available%20subscriptions%20and%20prices." target="_blank" rel="noopener noreferrer" aria-label="Contact Stream Zone on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.6 4.1 1.6 5.9L.2 24l6.5-1.7a11.8 11.8 0 0 0 5.4 1.3h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.1-3.5-8.3ZM12.2 21.6c-1.7 0-3.4-.5-4.8-1.3l-.4-.2-3.9 1 1-3.8-.3-.4a9.7 9.7 0 0 1-1.5-5.1c0-5.4 4.4-9.8 9.8-9.8 2.6 0 5.1 1 6.9 2.9a9.7 9.7 0 0 1 2.9 6.9c0 5.4-4.4 9.8-9.8 9.8Zm5.4-7.3c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.1 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.3-.6-.4Z"/></svg>
+  </a>
+
 </body>
 </html>
