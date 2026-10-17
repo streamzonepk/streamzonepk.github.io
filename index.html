@@ -72,6 +72,8 @@
     .hero p { color: var(--muted); font-size: 1.08rem; max-width: 570px; }
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
     .hero-note { color: #858398; font-size: .82rem; margin-top: 16px; }
+    .independent-note { max-width: 600px; margin-top: 18px; padding: 13px 15px; border: 1px solid #a78bfa55; border-radius: 12px; background: #7c3aed16; color: #d8d4e8; font-size: .86rem; }
+    .independent-note strong { color: #fff; }
     .hero-art { min-height: 340px; position: relative; display: grid; place-items: center; }
     .orb { position: absolute; width: 275px; height: 275px; border-radius: 50%; background: radial-gradient(circle at 35% 30%,#c4b5fd,#7c3aed 42%,#171329 73%); filter: drop-shadow(0 0 60px #7c3aed3b); opacity: .88; }
     .screen { z-index: 1; width: min(100%,390px); border: 1px solid #ffffff2b; border-radius: 24px; background: linear-gradient(145deg,#202031eF,#101018f2); padding: 18px; box-shadow: 0 30px 90px #0009; transform: rotate(2deg); }
@@ -225,6 +227,7 @@
         <a class="btn btn-outline" href="#" data-general-wa>Chat with us</a>
       </div>
       <div class="hero-note">Simple ordering · PKR pricing · Personal assistance</div>
+      <div class="independent-note"><strong>Independent storefront:</strong> Stream Zone is not an official website for the brands shown. Orders are handled by us through WhatsApp, not through the providers’ official checkout. Confirm the exact plan, account type, authorization, price and terms before paying.</div>
     </div>
     <div class="hero-art" aria-label="Decorative streaming service illustration">
       <div class="orb"></div>
@@ -233,7 +236,7 @@
         <div class="screen-feature"><strong>Entertainment, simplified.</strong><span>Pick a plan. Message us. Enjoy.</span></div>
         <div class="mini-logos" aria-label="Available subscription brands">
           <div class="mini-logo"><img src="assets/logos/netflix.svg" alt="Netflix"></div>
-          <div class="mini-logo"><img class="mini-prime" src="https://upload.wikimedia.org/wikipedia/commons/c/ca/Amazon_Prime_Video_logo_%282024%29.svg" alt="Prime Video"></div>
+          <div class="mini-logo"><img class="mini-prime" src="assets/logos/prime-video.svg" alt="Prime Video"></div>
           <div class="mini-logo"><img src="assets/logos/spotify.svg" alt="Spotify"></div>
           <div class="mini-logo"><img src="assets/logos/iptv.svg" alt="IPTV"></div>
           <div class="mini-logo"><img src="assets/logos/hbo-max.svg" alt="HBO Max"></div>
@@ -271,7 +274,7 @@
         </article>
 
         <article class="product">
-          <div class="product-head"><div class="product-icon prime"><img class="brand-logo" src="https://upload.wikimedia.org/wikipedia/commons/c/ca/Amazon_Prime_Video_logo_%282024%29.svg" alt="Prime Video logo"></div><div><h3>Amazon Prime Video</h3><div class="sub">Films & originals</div></div></div>
+          <div class="product-head"><div class="product-icon prime"><img class="brand-logo" src="assets/logos/prime-video.svg" alt="Prime Video logo"></div><div><h3>Amazon Prime Video</h3><div class="sub">Films & originals</div></div></div>
           <div class="product-label"><span class="label-dot"></span> Monthly plan</div><p>Enjoy films, series and originals with a simple monthly plan.</p>
           <ul class="chatgpt-plan-details">
             <li>Private screen</li>
@@ -319,7 +322,7 @@
         </article>
 
         <article class="product">
-          <div class="product-head"><div class="product-icon chaupal"><img class="chaupal-brand-logo" src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Chaupal-logo.jpg" alt="Chaupal original yellow logo on purple background"></div><div><h3>Chaupal</h3><div class="sub">Punjabi & regional entertainment</div></div></div>
+          <div class="product-head"><div class="product-icon chaupal"><img class="chaupal-brand-logo" src="assets/logos/iptv.svg" alt="Chaupal original yellow logo on purple background"></div><div><h3>Chaupal</h3><div class="sub">Punjabi & regional entertainment</div></div></div>
           <div class="product-label"><span class="label-dot"></span> Monthly plan</div>
           <p>Enjoy Chaupal TV subscription with Punjabi and regional movies, web series, dramas, and exclusive original content. Stream premium South Asian entertainment online in high quality. Please confirm supported devices and account setup before ordering.</p>
           <div class="price-list"><div class="price-row price-feature"><span>Monthly subscription</span><strong>Rs. 450</strong></div><div class="price-note">Price per month · PKR</div></div>
@@ -327,7 +330,7 @@
         </article>
 
         <article class="product">
-          <div class="product-head"><div class="product-icon disney-plus"><img class="brand-logo disney-logo" src="https://lumiere-a.akamaihd.net/v1/images/a8e5567d1658de062d95d079ebf536b0_4096x2309_6dedcc02.png?region=0%2C3%2C4096%2C2304" alt="Disney+ logo"></div><div><h3>Disney+</h3><div class="sub">Movies & exclusive series</div></div></div>
+          <div class="product-head"><div class="product-icon disney-plus"><img class="brand-logo disney-logo" src="assets/logos/disney-plus.svg" alt="Disney+ logo"></div><div><h3>Disney+</h3><div class="sub">Movies & exclusive series</div></div></div>
           <div class="product-label"><span class="label-dot"></span> Monthly plan</div>
           <p>Enjoy Disney+ entertainment featuring Disney, Pixar, Marvel, Star Wars and National Geographic, including hit movies and Disney+ Originals. Family entertainment for your next watch.</p>
           <div class="price-list"><div class="price-row price-feature"><span>Monthly subscription</span><strong>Rs. 450</strong></div><div class="price-note">Price per month · PKR</div></div>
@@ -335,7 +338,7 @@
         </article>
 
         <article class="product">
-          <div class="product-head"><div class="product-icon nordvpn"><img class="brand-logo nordvpn-logo" src="https://cdn.simpleicons.org/nordvpn/4687FF" alt="NordVPN logo"></div><div><h3>NordVPN</h3><div class="sub">Online privacy & security</div></div></div>
+          <div class="product-head"><div class="product-icon nordvpn"><img class="brand-logo nordvpn-logo" src="assets/logos/iptv.svg" alt="NordVPN logo"></div><div><h3>NordVPN</h3><div class="sub">Online privacy & security</div></div></div>
           <div class="product-label"><span class="label-dot"></span> Monthly plan</div>
           <p>NordVPN is a VPN service designed to help protect online privacy with encrypted internet connections. Confirm the plan duration, supported devices and included features before ordering.</p>
           <div class="price-list"><div class="price-row price-feature"><span>Monthly subscription</span><strong>Rs. 400</strong></div><div class="price-note">Price per month · PKR</div></div>
@@ -343,7 +346,7 @@
         </article>
 
         <article class="product">
-          <div class="product-head"><div class="product-icon canva"><img class="brand-logo canva-logo" src="https://static.canva.com/web/images/8439b51bb7a19f6e65ce1064bc37c197.svg" alt="Canva logo"></div><div><h3>Canva Edu</h3><div class="sub">Design & creative tools</div></div></div>
+          <div class="product-head"><div class="product-icon canva"><img class="brand-logo canva-logo" src="assets/logos/iptv.svg" alt="Canva logo"></div><div><h3>Canva Edu</h3><div class="sub">Design & creative tools</div></div></div>
           <div class="product-label"><span class="label-dot"></span> Monthly plan</div>
           <p>Access Canva Edu features for your creative and design projects.</p>
           <ul class="chatgpt-plan-details">
@@ -354,7 +357,7 @@
         </article>
 
         <article class="product">
-          <div class="product-head"><div class="product-icon chatgpt"><img class="brand-logo chatgpt-logo" src="https://upload.wikimedia.org/wikipedia/commons/6/66/OpenAI_logo_2025_%28symbol%29.svg?v=20261017" alt="ChatGPT logo"></div><div><h3>ChatGPT</h3><div class="sub">AI assistant & productivity</div></div></div>
+          <div class="product-head"><div class="product-icon chatgpt"><img class="brand-logo chatgpt-logo" src="assets/logos/openai.svg" alt="ChatGPT logo"></div><div><h3>ChatGPT</h3><div class="sub">AI assistant & productivity</div></div></div>
           <div class="product-label"><span class="label-dot"></span> Monthly plan</div>
           <p>ChatGPT Plus plan for AI assistance, writing, research, coding and everyday productivity.</p>
           <ul class="chatgpt-plan-details">
