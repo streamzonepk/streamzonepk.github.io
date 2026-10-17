@@ -1,136 +1,23 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#101018">
   <meta name="robots" content="noindex, nofollow, noarchive">
-  <title>Private Order Dashboard | Stream Zone</title>
+  <meta name="theme-color" content="#101018">
+  <title>Temporarily Unavailable | Stream Zone</title>
   <style>
-    :root{--bg:#0b0b11;--panel:#14141e;--panel2:#1a1a27;--text:#f7f6fb;--muted:#aaa8bb;--purple:#a78bfa;--purple2:#7c3aed;--green:#25d366;--border:rgba(255,255,255,.1);--red:#fb7185;--amber:#fbbf24}
-    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 10% 0%,#7c3aed22,transparent 35%),var(--bg);color:var(--text);font:15px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}a{color:#c4b5fd}.wrap{width:min(1200px,calc(100% - 28px));margin:auto}header{border-bottom:1px solid var(--border);background:#0b0b11dc;position:sticky;top:0;z-index:2;backdrop-filter:blur(16px)}.nav{display:flex;align-items:center;justify-content:space-between;gap:15px;min-height:70px}.brand{font-weight:850;letter-spacing:-.04em;font-size:1.15rem}.brand span{color:#b9a1ff}.btn{border:0;border-radius:11px;padding:10px 14px;color:#fff;font:inherit;font-weight:750;cursor:pointer;background:linear-gradient(135deg,var(--purple2),#8b5cf6)}.btn:disabled{opacity:.5;cursor:not-allowed}.btn.secondary{background:#ffffff0b;border:1px solid var(--border)}.btn.danger{background:#4a1825;color:#fecdd3;border:1px solid #fb718544}.btn.small{padding:7px 10px;font-size:.82rem}.panel{background:linear-gradient(150deg,#191825,#111119);border:1px solid var(--border);border-radius:18px;padding:22px;box-shadow:0 14px 40px #0003}.auth{max-width:440px;margin:9vh auto}.muted{color:var(--muted)}h1{font-size:clamp(1.7rem,4vw,2.4rem);letter-spacing:-.05em;margin:0 0 5px}h2{font-size:1.15rem;margin:0 0 15px}.intro{margin-bottom:24px}.hidden{display:none!important}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:20px 0}.metric{background:#ffffff06;border:1px solid var(--border);border-radius:14px;padding:16px}.metric span{display:block;color:var(--muted);font-size:.84rem}.metric strong{display:block;font-size:1.55rem;margin-top:5px}.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:22px 0 14px;flex-wrap:wrap}.filters{display:flex;gap:9px;flex-wrap:wrap}.field{display:grid;gap:6px;min-width:0}.field label{color:#d6d2e5;font-size:.86rem;font-weight:650}.field input,.field select,.field textarea,.filters input,.filters select{width:100%;min-width:0;background:#0d0d15;border:1px solid #ffffff20;color:var(--text);border-radius:10px;padding:11px 12px;font:inherit;outline:none}.field input:focus,.field select:focus,.field textarea:focus,.filters input:focus,.filters select:focus{border-color:var(--purple)}.field textarea{min-height:88px;resize:vertical}.form-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.span-all{grid-column:1/-1}.form-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}.message{padding:11px 13px;border-radius:10px;background:#7c3aed20;border:1px solid #a78bfa55;color:#e5dcff;margin:12px 0;white-space:pre-wrap}.message.error{background:#7f1d1d30;border-color:#fb718566;color:#fecaca}.table-wrap{overflow:auto;border:1px solid var(--border);border-radius:13px}table{width:100%;border-collapse:collapse;min-width:900px;background:#111119}th,td{text-align:left;padding:12px 13px;border-bottom:1px solid var(--border);vertical-align:top}th{font-size:.78rem;color:#c9c3dc;background:#1a1926;position:sticky;top:0}td{font-size:.87rem}td small{display:block;color:var(--muted);margin-top:3px}.pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#7c3aed22;border:1px solid #a78bfa44;color:#e0d4ff;font-size:.75rem;white-space:nowrap}.pill.good{background:#14532d44;border-color:#22c55e55;color:#bbf7d0}.pill.warn{background:#78350f44;border-color:#fbbf2455;color:#fde68a}.pill.bad{background:#7f1d1d44;border-color:#fb718555;color:#fecaca}.row-actions{display:flex;gap:6px}.footer-note{font-size:.8rem;color:#89869c;margin:18px 0 30px}.empty{padding:26px;text-align:center;color:var(--muted)}@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.panel{padding:17px}}@media(max-width:520px){.wrap{width:calc(100% - 20px)}.nav{min-height:62px}.form-grid{grid-template-columns:1fr}.span-all{grid-column:auto}.panel{padding:14px}.grid{gap:8px}.metric{padding:12px}.metric strong{font-size:1.3rem}.toolbar{align-items:stretch}.filters{width:100%}.filters>*{flex:1 1 100%}.auth{margin:6vh auto}}
+    :root{color-scheme:dark;--bg:#0b0b11;--panel:#14141e;--text:#f7f6fb;--muted:#aaa8bb;--purple:#b9a1ff}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+    main{width:min(560px,100%);padding:28px;border:1px solid #ffffff20;border-radius:18px;background:var(--panel)}
+    h1{margin:0 0 12px;font-size:1.8rem}p{color:var(--muted)}a{color:var(--purple)}
   </style>
 </head>
 <body>
-<header><div class="wrap nav"><a class="brand" href="./">STREAM <span>ZONE</span> <small class="muted">/ Admin</small></a><button id="signout" class="btn secondary hidden" type="button">Sign out</button></div></header>
-<main class="wrap">
-  <section id="auth-panel" class="panel auth">
-    <h1>Private order dashboard</h1><p class="muted intro">Sign in with the admin account you created in Supabase. Public visitors cannot access order records.</p>
-    <div id="setup-warning" class="message hidden"></div>
-    <form id="login-form">
-      <div class="field"><label for="email">Admin email</label><input id="email" type="email" autocomplete="username" required></div>
-      <div class="field" style="margin-top:13px"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required></div>
-      <div class="form-actions"><button id="login-button" class="btn" type="submit">Sign in</button></div>
-    </form>
-    <div id="auth-message" class="message hidden" role="status"></div>
-    <p class="footer-note">For security, account creation is disabled here. Create the admin user in your Supabase dashboard and authorize its user ID using the <a href="ORDER-MANAGEMENT-SETUP.md">setup guide</a>.</p>
-  </section>
-
-  <section id="dashboard" class="hidden">
-    <div class="intro"><h1>Order management</h1><div class="muted">Record WhatsApp orders, monitor payment and activation, and track renewal dates.</div></div>
-    <div class="grid">
-      <div class="metric"><span>Total orders</span><strong id="metric-total">0</strong></div>
-      <div class="metric"><span>Awaiting payment</span><strong id="metric-pending">0</strong></div>
-      <div class="metric"><span>Awaiting activation</span><strong id="metric-activation">0</strong></div>
-      <div class="metric"><span>Renewals in 7 days</span><strong id="metric-renewals">0</strong></div>
-    </div>
-    <section class="panel" id="order-form-panel">
-      <h2 id="form-title">Add an order</h2>
-      <div id="order-message" class="message hidden" role="status"></div>
-      <form id="order-form">
-        <div class="form-grid">
-          <div class="field"><label for="customer_name">Customer name *</label><input id="customer_name" maxlength="120" required></div>
-          <div class="field"><label for="customer_phone">WhatsApp / phone</label><input id="customer_phone" type="tel" maxlength="40" placeholder="+92…"></div>
-          <div class="field"><label for="product">Subscription *</label><select id="product" required><option value="">Choose product</option><option>Netflix</option><option>Amazon Prime Video</option><option>Spotify</option><option>IPTV</option><option>HBO Max</option><option>Other</option></select></div>
-          <div class="field"><label for="plan">Plan / device</label><input id="plan" maxlength="120" placeholder="e.g. Netflix Mobile"></div>
-          <div class="field"><label for="amount">Order amount (PKR) *</label><input id="amount" type="number" min="0" step="1" required></div>
-          <div class="field"><label for="payment_status">Payment status</label><select id="payment_status"><option>Pending</option><option>Paid</option><option>Refunded</option></select></div>
-          <div class="field"><label for="activation_status">Activation status</label><select id="activation_status"><option>Pending</option><option>Active</option><option>Failed</option><option>Expired</option></select></div>
-          <div class="field"><label for="renewal_date">Renewal date</label><input id="renewal_date" type="date"></div>
-          <div class="field"><label for="order_date">Order date</label><input id="order_date" type="date"></div>
-          <div class="field span-all"><label for="notes">Notes</label><textarea id="notes" maxlength="2000" placeholder="Payment reference, activation details, follow-up…"></textarea></div>
-        </div>
-        <div class="form-actions"><button id="save-order" class="btn" type="submit">Save order</button><button id="cancel-edit" class="btn secondary hidden" type="button">Cancel edit</button></div>
-      </form>
-    </section>
-
-    <div class="toolbar"><div><h2 style="margin:0">Orders</h2><div class="muted" style="font-size:.84rem">Search by customer, phone, product, or notes.</div></div><div class="filters"><input id="search" aria-label="Search orders" placeholder="Search orders…"><select id="status-filter" aria-label="Filter by payment status"><option value="">All payment statuses</option><option>Pending</option><option>Paid</option><option>Refunded</option></select><button id="refresh" class="btn secondary" type="button">Refresh</button></div></div>
-    <div id="table-message" class="message hidden" role="status"></div>
-    <div class="table-wrap"><table><thead><tr><th>Customer</th><th>Subscription</th><th>Amount</th><th>Payment</th><th>Activation</th><th>Renewal</th><th>Order date</th><th>Actions</th></tr></thead><tbody id="orders-body"><tr><td colspan="8" class="empty">Loading orders…</td></tr></tbody></table></div>
-    <p class="footer-note">Customer contact details are sensitive. Use a strong password, keep your Supabase account secure, and do not share this dashboard login. Never store banking PINs or one-time codes in notes.</p>
-  </section>
-</main>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="assets/js/supabase-config.js"></script>
-<script>
-(function(){
-  const $ = id => document.getElementById(id);
-  const authPanel=$("auth-panel"), dashboard=$("dashboard"), authMessage=$("auth-message"), orderMessage=$("order-message"), tableMessage=$("table-message");
-  const configUrl=window.STREAMZONE_SUPABASE_URL||"", configKey=window.STREAMZONE_SUPABASE_ANON_KEY||"";
-  let client=null, orders=[], editingId=null;
-  const configured=configUrl.startsWith("https://") && !configUrl.includes("PASTE_") && configKey.length>20 && !configKey.includes("PASTE_");
-  function message(el,text,error){el.textContent=text;el.classList.remove("hidden","error");if(error)el.classList.add("error")}
-  function hideMessage(el){el.classList.add("hidden");el.classList.remove("error")}
-  function escapeHtml(value){return String(value==null?"":value).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]))}
-  function localDate(d){return d?String(d).slice(0,10):""}
-  function statusClass(value){if(value==="Paid"||value==="Active")return "good";if(value==="Refunded"||value==="Failed"||value==="Expired")return "bad";return "warn"}
-  function money(value){return "Rs. "+Number(value||0).toLocaleString("en-PK",{maximumFractionDigits:0})}
-  function setSignedIn(signedIn){authPanel.classList.toggle("hidden",signedIn);dashboard.classList.toggle("hidden",!signedIn);$("signout").classList.toggle("hidden",!signedIn)}
-  function clearForm(){editingId=null;$("order-form").reset();$("order_date").value=new Date().toISOString().slice(0,10);$("form-title").textContent="Add an order";$("save-order").textContent="Save order";$("cancel-edit").classList.add("hidden");hideMessage(orderMessage)}
-  function drawMetrics(){
-    $("metric-total").textContent=orders.length;
-    $("metric-pending").textContent=orders.filter(o=>o.payment_status==="Pending").length;
-    $("metric-activation").textContent=orders.filter(o=>o.activation_status==="Pending").length;
-    const today=new Date();today.setHours(0,0,0,0);const limit=new Date(today);limit.setDate(limit.getDate()+7);
-    $("metric-renewals").textContent=orders.filter(o=>{if(!o.renewal_date||o.activation_status!=="Active")return false;const d=new Date(o.renewal_date+"T00:00:00");return d>=today&&d<=limit}).length;
-  }
-  function drawOrders(){
-    const q=$("search").value.trim().toLowerCase(), status=$("status-filter").value;
-    const filtered=orders.filter(o=>(!status||o.payment_status===status)&&[o.customer_name,o.customer_phone,o.product,o.plan,o.notes].some(v=>String(v||"").toLowerCase().includes(q)));
-    if(!filtered.length){$("orders-body").innerHTML='<tr><td colspan="8" class="empty">No matching orders yet. Add your first WhatsApp order above.</td></tr>';return}
-    $("orders-body").innerHTML=filtered.map(o=>'<tr><td><strong>'+escapeHtml(o.customer_name)+'</strong><small>'+escapeHtml(o.customer_phone||"No phone saved")+'</small>'+(o.notes?'<small>'+escapeHtml(o.notes)+'</small>':"")+'</td><td>'+escapeHtml(o.product)+(o.plan?'<small>'+escapeHtml(o.plan)+'</small>':"")+'</td><td><strong>'+money(o.amount)+'</strong></td><td><span class="pill '+statusClass(o.payment_status)+'">'+escapeHtml(o.payment_status)+'</span></td><td><span class="pill '+statusClass(o.activation_status)+'">'+escapeHtml(o.activation_status)+'</span></td><td>'+escapeHtml(o.renewal_date||"—")+'</td><td>'+escapeHtml(o.order_date||localDate(o.created_at)||"—")+'</td><td><div class="row-actions"><button class="btn secondary small" type="button" data-edit="'+escapeHtml(o.id)+'">Edit</button><button class="btn danger small" type="button" data-delete="'+escapeHtml(o.id)+'">Delete</button></div></td></tr>').join("");
-  }
-  async function loadOrders(){
-    hideMessage(tableMessage);$("orders-body").innerHTML='<tr><td colspan="8" class="empty">Loading orders…</td></tr>';
-    const {data,error}=await client.from("orders").select("*").order("created_at",{ascending:false});
-    if(error){message(tableMessage,"Could not load orders: "+error.message+" Check that the SQL setup and admin authorization steps are complete.",true);$("orders-body").innerHTML='<tr><td colspan="8" class="empty">Orders unavailable.</td></tr>';return}
-    orders=data||[];drawMetrics();drawOrders();
-  }
-  $("login-form").addEventListener("submit",async e=>{
-    e.preventDefault();hideMessage(authMessage);$("login-button").disabled=true;
-    try{const {error}=await client.auth.signInWithPassword({email:$("email").value.trim(),password:$("password").value});if(error)throw error;setSignedIn(true);clearForm();await loadOrders()}
-    catch(err){message(authMessage,err.message||"Sign-in failed.",true)}
-    finally{$("login-button").disabled=false}
-  });
-  $("signout").addEventListener("click",async()=>{if(client)await client.auth.signOut();setSignedIn(false);orders=[]});
-  $("order-form").addEventListener("submit",async e=>{
-    e.preventDefault();hideMessage(orderMessage);$("save-order").disabled=true;
-    const record={customer_name:$("customer_name").value.trim(),customer_phone:$("customer_phone").value.trim()||null,product:$("product").value,plan:$("plan").value.trim()||null,amount:Number($("amount").value),payment_status:$("payment_status").value,activation_status:$("activation_status").value,renewal_date:$("renewal_date").value||null,order_date:$("order_date").value||new Date().toISOString().slice(0,10),notes:$("notes").value.trim()||null};
-    try{
-      const wasEditing=Boolean(editingId);
-      const result=wasEditing?await client.from("orders").update(record).eq("id",editingId):await client.from("orders").insert(record);
-      if(result.error)throw result.error;
-      clearForm();message(tableMessage,wasEditing?"Order updated.":"Order saved.");await loadOrders();
-    }catch(err){message(orderMessage,"Could not save order: "+err.message,true)}
-    finally{$("save-order").disabled=false}
-  });
-  $("cancel-edit").addEventListener("click",clearForm);
-  $("orders-body").addEventListener("click",async e=>{
-    const edit=e.target.closest("[data-edit]"), del=e.target.closest("[data-delete]");
-    if(edit){const o=orders.find(item=>item.id===edit.dataset.edit);if(!o)return;editingId=o.id;for(const key of ["customer_name","customer_phone","product","plan","amount","payment_status","activation_status","renewal_date","order_date","notes"])$(key).value=o[key]??"";$("form-title").textContent="Edit order";$("save-order").textContent="Update order";$("cancel-edit").classList.remove("hidden");$("order-form-panel").scrollIntoView({behavior:"smooth",block:"start"});return}
-    if(del){const o=orders.find(item=>item.id===del.dataset.delete);if(!o||!confirm("Delete the order for "+o.customer_name+"? This cannot be undone."))return;const {error}=await client.from("orders").delete().eq("id",o.id);if(error){message(tableMessage,"Could not delete order: "+error.message,true);return}message(tableMessage,"Order deleted.");if(editingId===o.id)clearForm();await loadOrders()}
-  });
-  $("search").addEventListener("input",drawOrders);$("status-filter").addEventListener("change",drawOrders);$("refresh").addEventListener("click",loadOrders);
-  if(!configured||!window.supabase||!window.supabase.createClient){
-    message($("setup-warning"),"Setup required: add your Supabase Project URL and publishable/anon key in assets/js/supabase-config.js, then run the SQL and create/authorize your admin account using ORDER-MANAGEMENT-SETUP.md.",true);
-    $("login-button").disabled=true;
-  }else{
-    client=window.supabase.createClient(configUrl,configKey);
-    client.auth.getSession().then(async({data})=>{if(data.session){setSignedIn(true);clearForm();await loadOrders()}});
-    client.auth.onAuthStateChange((event,session)=>{if(event==="SIGNED_OUT"||!session){setSignedIn(false)}});
-  }
-  $("order_date").value=new Date().toISOString().slice(0,10);
-})();
-</script>
+  <main>
+    <h1>Admin dashboard temporarily unavailable</h1>
+    <p>The Stream Zone order dashboard is temporarily offline while we carry out a security review.</p>
+    <p><a href="./">Return to Stream Zone</a></p>
+  </main>
 </body>
 </html>
