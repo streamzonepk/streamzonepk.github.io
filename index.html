@@ -280,7 +280,7 @@
             <li>25 days warranty</li>
           </ul>
           <div class="price-list"><div class="price-row price-feature"><span>Monthly subscription</span><strong>Rs. 200</strong></div><div class="price-note">Price per month · PKR</div></div>
-          <button class="btn btn-whatsapp" data-order="Amazon Prime Video" data-plans="Monthly subscription — Rs. 200; Private screen; UHD + 4K Resolution; Can be logged into 1 device; 25 days warranty">Order Prime Video ↗</button><div class="product-footnote">WhatsApp order · monthly price</div>
+          <button class="btn btn-whatsapp" data-order="Amazon Prime Video" data-plans="Monthly subscription — Rs. 200">Order Prime Video ↗</button><div class="product-footnote">WhatsApp order · monthly price</div>
         </article>
 
         <article class="product">
@@ -291,7 +291,7 @@
             <li>Private account</li>
           </ul>
           <div class="price-list"><div class="price-row price-feature"><span>Monthly subscription</span><strong>Rs. 399</strong></div><div class="price-note">Price per month · PKR</div></div>
-          <button class="btn btn-whatsapp" data-order="Spotify" data-plans="Monthly subscription — Rs. 399; On customer email; Private account">Order Spotify ↗</button><div class="product-footnote">WhatsApp order · monthly price</div>
+          <button class="btn btn-whatsapp" data-order="Spotify" data-plans="Monthly subscription — Rs. 399">Order Spotify ↗</button><div class="product-footnote">WhatsApp order · monthly price</div>
         </article>
 
         <article class="product">
@@ -340,7 +340,7 @@
             <li>Private (<strong>On Customer Mail</strong> )</li>
           </ul>
           <div class="price-list"><div class="price-row price-feature"><span>Monthly subscription</span><strong>Rs. 280</strong></div><div class="price-note">Price per month · PKR</div></div>
-          <button class="btn btn-whatsapp" data-order="Canva Edu" data-plans="Monthly subscription — Rs. 280; Private (On Customer Mail)">Order Canva Edu ↗</button><div class="product-footnote">WhatsApp order · monthly price</div>
+          <button class="btn btn-whatsapp" data-order="Canva Edu" data-plans="Monthly subscription — Rs. 280">Order Canva Edu ↗</button><div class="product-footnote">WhatsApp order · monthly price</div>
         </article>
 
         <article class="product">
@@ -357,7 +357,7 @@
             <li>Codex is not included in this plan.</li>
           </ul>
           <div class="price-list"><div class="price-row price-feature"><span>Monthly subscription</span><strong>Rs. 700</strong></div><div class="price-note">Price per month · PKR</div></div>
-          <button class="btn btn-whatsapp" data-order="ChatGPT Plus Plan" data-plans="Monthly subscription — Rs. 700; Shared account; Codex not included">Order ChatGPT ↗</button><div class="product-footnote">WhatsApp order · monthly price</div>
+          <button class="btn btn-whatsapp" data-order="ChatGPT Plus Plan" data-plans="Monthly subscription — Rs. 700">Order ChatGPT ↗</button><div class="product-footnote">WhatsApp order · monthly price</div>
         </article>
       </div>
     </div>
@@ -481,11 +481,7 @@
   document.querySelectorAll("[data-order]").forEach(button => {
     button.addEventListener("click", () => {
       const product = button.dataset.order;
-      const planDetails = button.dataset.plans
-        .split(";")
-        .map(detail => detail.trim())
-        .filter(Boolean)
-        .join(" ");
+      const planDetails = button.dataset.plans.trim();
       openWhatsApp(`Hi Stream Zone! I'd like to place an order.\n${product} ${planDetails}\nPlease confirm availability & payment details. Thank you.`);
     });
   });
