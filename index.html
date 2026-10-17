@@ -257,13 +257,13 @@
               <button type="button" class="device-option" data-netflix-option="Laptop screen" data-price="Rs. 400" aria-pressed="false"><span>💻 Laptop screen</span><strong>Rs. 400</strong></button>
               <button type="button" class="device-option" data-netflix-option="LED / Smart TV" data-price="Rs. 550" aria-pressed="false"><span>📺 LED / Smart TV</span><strong>Rs. 550</strong></button>
             </div>
-            <ul class="chatgpt-plan-details">
+            <ul class="chatgpt-plan-details" id="netflix-features" hidden>
               <li>Private screen</li>
               <li>UHD + 4K screen</li>
               <li>Can be logged into 1 device</li>
               <li><strong>25 days warranty</strong></li>
             </ul>
-            <div class="price-note" id="netflix-selection-note">Select one device option to continue.</div>
+            <div class="price-note" id="netflix-selection-note">Select one device option to view plan features.</div>
           </div>
           <button class="btn btn-whatsapp" data-netflix-order disabled>Order selected Netflix plan ↗</button>
           <div class="product-footnote">WhatsApp order · monthly price</div>
@@ -467,6 +467,7 @@
         item.setAttribute("aria-pressed", String(item === option));
       });
       netflixSelectionNote.textContent = "Selected: " + selectedNetflixPlan.device + " — " + selectedNetflixPlan.price;
+      document.getElementById("netflix-features").hidden = false;
       netflixOrderButton.disabled = false;
     });
   });
