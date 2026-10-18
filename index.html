@@ -563,7 +563,7 @@
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onerror="window.__streamZoneSupabaseCdnError=true"></script>
-<script src="supabase-config.js?v=20261018-3"></script>
+<script src="supabase-config.js?v=20261018-4"></script>
 <script>
   (() => {
     const form = document.getElementById("review-form");
@@ -571,6 +571,8 @@
     const status = document.getElementById("review-form-status");
     const list = document.getElementById("review-list");
     const stars = document.getElementById("review-stars");
+    if (status) status.textContent = "Review script loaded; checking connection…";
+    if (!status || !list || !stars) { console.error("Stream Zone reviews: required review elements are missing."); return; }
     let rating = 0;
     stars.querySelectorAll("button").forEach(button => button.addEventListener("click", () => {
       rating = Number(button.dataset.rating);
