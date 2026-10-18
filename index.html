@@ -204,6 +204,30 @@
       .section-head { align-items: start; flex-direction: column; }
       .cta { align-items: start; flex-direction: column; padding: 25px; }
     }
+
+    /* Customer reviews */
+    .reviews-grid { display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:18px; align-items:start; }
+    .review-panel { border:1px solid var(--border); border-radius:18px; padding:22px; background:linear-gradient(155deg,#1b1a29,#111119 78%); }
+    .review-panel h3 { margin:0 0 7px; }
+    .review-muted { color:var(--muted); font-size:.9rem; margin:0 0 17px; }
+    .review-form { display:grid; gap:12px; }
+    .review-form label { display:grid; gap:6px; color:#d7d4e3; font-size:.88rem; font-weight:650; }
+    .review-form input,.review-form select,.review-form textarea { width:100%; border:1px solid var(--border); border-radius:10px; padding:12px; color:var(--text); background:#0d0d15; font:inherit; }
+    .review-form textarea { min-height:110px; resize:vertical; }
+    .review-stars { display:flex; gap:5px; }
+    .review-stars button { border:0; background:transparent; color:#777589; cursor:pointer; font-size:1.7rem; padding:0 2px; }
+    .review-stars button[aria-pressed="true"],.review-stars button:hover { color:#fbbf24; }
+    .review-status { color:var(--muted); font-size:.86rem; min-height:1.4em; }
+    .review-list { display:grid; gap:12px; }
+    .review-card { border:1px solid var(--border); border-radius:15px; padding:17px; background:#14141d; }
+    .review-card-top { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+    .review-card h4 { margin:0; font-size:1rem; }
+    .review-date { color:#8e8ba2; font-size:.75rem; }
+    .review-rating { color:#fbbf24; letter-spacing:.08em; white-space:nowrap; }
+    .review-card p { color:#d7d4e3; margin:10px 0 0; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .review-empty { border:1px dashed #ffffff24; border-radius:14px; padding:22px; color:var(--muted); text-align:center; }
+    @media(max-width:800px) { .reviews-grid { grid-template-columns:1fr; } }
+
   </style>
 </head>
 <body>
@@ -393,6 +417,36 @@
     </div>
   </section>
 
+
+  <section id="reviews">
+    <div class="wrap">
+      <div class="section-head"><div><h2>Customer reviews</h2><p>Share your experience with Stream Zone.</p></div></div>
+      <div class="reviews-grid">
+        <div class="review-panel">
+          <h3>Write a review</h3>
+          <p class="review-muted">Reviews appear publicly after you submit them. Please keep feedback genuine and respectful.</p>
+          <form id="review-form" class="review-form">
+            <label for="review-name">Display name<input id="review-name" name="display_name" maxlength="50" autocomplete="name" required placeholder="Your name"></label>
+            <label for="review-product">Product<select id="review-product" name="product" required>
+              <option value="">Choose a product</option><option>Netflix</option><option>Prime Video</option><option>Spotify</option><option>IPTV</option><option>HBO Max</option><option>Disney+</option><option>NordVPN</option><option>Canva Edu</option><option>ChatGPT</option><option>Other</option>
+            </select></label>
+            <div><label>Rating</label><div class="review-stars" id="review-stars" role="group" aria-label="Choose a star rating">
+              <button type="button" data-rating="1" aria-label="1 star" aria-pressed="false">★</button><button type="button" data-rating="2" aria-label="2 stars" aria-pressed="false">★</button><button type="button" data-rating="3" aria-label="3 stars" aria-pressed="false">★</button><button type="button" data-rating="4" aria-label="4 stars" aria-pressed="false">★</button><button type="button" data-rating="5" aria-label="5 stars" aria-pressed="false">★</button>
+            </div></div>
+            <label for="review-text">Your review<textarea id="review-text" name="body" minlength="8" maxlength="1000" required placeholder="Tell others about your experience..."></textarea></label>
+            <button class="btn btn-primary" type="submit">Post review</button>
+            <div class="review-status" id="review-form-status" role="status" aria-live="polite">Review service is being connected. Please check back soon.</div>
+          </form>
+        </div>
+        <div class="review-panel">
+          <h3>What customers say</h3>
+          <p class="review-muted">Newest reviews first.</p>
+          <div class="review-list" id="review-list" aria-live="polite"><div class="review-empty">Customer reviews will appear here once the review service is connected.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="faq">
     <div class="wrap">
       <div class="section-head">
@@ -507,5 +561,53 @@
 
   document.getElementById("year").textContent = new Date().getFullYear();
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script>
+  (() => {
+    const form = document.getElementById("review-form");
+    if (!form) return;
+    const status = document.getElementById("review-form-status");
+    const list = document.getElementById("review-list");
+    const stars = document.getElementById("review-stars");
+    let rating = 0;
+    stars.querySelectorAll("button").forEach(button => button.addEventListener("click", () => {
+      rating = Number(button.dataset.rating);
+      stars.querySelectorAll("button").forEach(item => item.setAttribute("aria-pressed", String(Number(item.dataset.rating) <= rating)));
+    }));
+    const config = window.STREAMZONE_SUPABASE || {};
+    if (!window.supabase || !config.url || !config.anonKey || config.url.includes("YOUR_PROJECT") || config.anonKey.includes("YOUR_SUPABASE")) {
+      status.textContent = "Review service is not connected yet. Setup is required before reviews can be posted.";
+      return;
+    }
+    const client = window.supabase.createClient(config.url, config.anonKey);
+    const escapeText = value => String(value ?? "").replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
+    const render = rows => {
+      if (!rows.length) { list.innerHTML = '<div class="review-empty">No reviews yet. Be the first to share your experience.</div>'; return; }
+      list.innerHTML = rows.map(row => '<article class="review-card"><div class="review-card-top"><div><h4>' + escapeText(row.display_name) + '</h4><div class="review-date">' + escapeText(row.product) + ' · ' + escapeText(new Date(row.created_at).toLocaleDateString()) + '</div></div><div class="review-rating" aria-label="' + Number(row.rating) + ' out of 5 stars">' + '★'.repeat(Number(row.rating)) + '☆'.repeat(5-Number(row.rating)) + '</div></div><p>' + escapeText(row.body) + '</p></article>').join("");
+    };
+    async function loadReviews() {
+      const { data, error } = await client.from("reviews").select("id,display_name,product,rating,body,created_at").order("created_at", {ascending:false}).limit(100);
+      if (error) { list.innerHTML = '<div class="review-empty">Reviews are temporarily unavailable. Please try again later.</div>'; console.error("Could not load reviews:", error.message); return; }
+      render(data || []);
+    }
+    form.addEventListener("submit", async event => {
+      event.preventDefault();
+      if (rating < 1 || rating > 5) { status.textContent = "Please select a star rating."; return; }
+      const submit = form.querySelector('[type="submit"]');
+      submit.disabled = true; status.textContent = "Posting your review…";
+      const review = {display_name:form.elements.display_name.value.trim(),product:form.elements.product.value,rating,body:form.elements.body.value.trim()};
+      const { error } = await client.from("reviews").insert(review);
+      submit.disabled = false;
+      if (error) { status.textContent = "Your review could not be posted. Please try again later."; console.error("Could not post review:", error.message); return; }
+      form.reset(); rating = 0; stars.querySelectorAll("button").forEach(item => item.setAttribute("aria-pressed","false"));
+      status.textContent = "Thanks! Your review is now published.";
+      await loadReviews();
+    });
+    loadReviews();
+  })();
+</script>
+
 </body>
 </html>
