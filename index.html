@@ -562,8 +562,8 @@
   document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase-config.js?v=20261018-2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onerror="window.__streamZoneSupabaseCdnError=true"></script>
+<script src="supabase-config.js?v=20261018-3"></script>
 <script>
   (() => {
     const form = document.getElementById("review-form");
@@ -577,11 +577,24 @@
       stars.querySelectorAll("button").forEach(item => item.setAttribute("aria-pressed", String(Number(item.dataset.rating) <= rating)));
     }));
     const config = window.STREAMZONE_SUPABASE || {};
-    if (!window.supabase || !config.url || !config.anonKey || config.url.includes("YOUR_PROJECT") || config.anonKey.includes("YOUR_SUPABASE")) {
-      status.textContent = "Review service is not connected yet. Setup is required before reviews can be posted.";
+    if (window.__streamZoneSupabaseCdnError || !window.supabase || typeof window.supabase.createClient !== "function") {
+      status.textContent = "The review service could not load its Supabase library. Please refresh in a moment or try another browser.";
+      console.error("Stream Zone reviews: Supabase JavaScript library did not load.");
       return;
     }
-    const client = window.supabase.createClient(config.url, config.anonKey);
+    if (!config.url || !config.anonKey || config.url.includes("YOUR_PROJECT") || config.anonKey.includes("YOUR_SUPABASE")) {
+      status.textContent = "Review service configuration is missing. Please contact Stream Zone.";
+      console.error("Stream Zone reviews: project URL or public key is missing.");
+      return;
+    }
+    let client;
+    try {
+      client = window.supabase.createClient(config.url, config.anonKey);
+    } catch (error) {
+      status.textContent = "The review service could not initialize. Please refresh and try again.";
+      console.error("Stream Zone reviews: client initialization failed.", error);
+      return;
+    }
     const escapeText = value => String(value ?? "").replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
     const render = rows => {
       if (!rows.length) { list.innerHTML = '<div class="review-empty">No reviews yet. Be the first to share your experience.</div>'; return; }
