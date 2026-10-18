@@ -563,7 +563,7 @@
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onerror="window.__streamZoneSupabaseCdnError=true"></script>
-<script src="supabase-config.js?v=20261018-4"></script>
+<script src="supabase-config.js?v=20261018-5"></script>
 <script>
   (() => {
     const form = document.getElementById("review-form");
@@ -604,7 +604,8 @@
     };
     async function loadReviews() {
       const { data, error } = await client.from("reviews").select("id,display_name,product,rating,body,created_at").order("created_at", {ascending:false}).limit(100);
-      if (error) { list.innerHTML = '<div class="review-empty">Reviews are temporarily unavailable. Please try again later.</div>'; console.error("Could not load reviews:", error.message); return; }
+      if (error) { status.textContent = "Supabase loaded, but reviews could not be retrieved. Please check the database table and access policies."; list.innerHTML = '<div class="review-empty">Reviews are temporarily unavailable. Please try again later.</div>'; console.error("Could not load reviews:", error.message); return; }
+      status.textContent = "Review service connected. New reviews publish immediately after submission.";
       render(data || []);
     }
     form.addEventListener("submit", async event => {
