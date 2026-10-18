@@ -563,7 +563,7 @@
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onerror="window.__streamZoneSupabaseCdnError=true"></script>
-<script src="supabase-config.js?v=20261018-5"></script>
+<script src="supabase-config.js?v=20261018-6"></script>
 <script>
   (() => {
     const form = document.getElementById("review-form");
@@ -603,10 +603,19 @@
       list.innerHTML = rows.map(row => '<article class="review-card"><div class="review-card-top"><div><h4>' + escapeText(row.display_name) + '</h4><div class="review-date">' + escapeText(row.product) + ' · ' + escapeText(new Date(row.created_at).toLocaleDateString()) + '</div></div><div class="review-rating" aria-label="' + Number(row.rating) + ' out of 5 stars">' + '★'.repeat(Number(row.rating)) + '☆'.repeat(5-Number(row.rating)) + '</div></div><p>' + escapeText(row.body) + '</p></article>').join("");
     };
     async function loadReviews() {
-      const { data, error } = await client.from("reviews").select("id,display_name,product,rating,body,created_at").order("created_at", {ascending:false}).limit(100);
-      if (error) { status.textContent = "Supabase loaded, but reviews could not be retrieved. Please check the database table and access policies."; list.innerHTML = '<div class="review-empty">Reviews are temporarily unavailable. Please try again later.</div>'; console.error("Could not load reviews:", error.message); return; }
-      status.textContent = "Review service connected. New reviews publish immediately after submission.";
-      render(data || []);
+      status.textContent = "Checking the Supabase reviews table…";
+      try {
+        const request = client.from("reviews").select("id,display_name,product,rating,body,created_at").order("created_at", {ascending:false}).limit(100);
+        const result = await Promise.race([request, new Promise((_, reject) => setTimeout(() => reject(new Error("Request timed out after 12 seconds")), 12000))]);
+        const { data, error } = result;
+        if (error) { status.textContent = "Supabase responded, but reviews could not be retrieved. Check the reviews table and its access policies."; list.innerHTML = '<div class="review-empty">Reviews are temporarily unavailable. Please try again later.</div>'; console.error("Could not load reviews:", error.message); return; }
+        status.textContent = "Review service connected. New reviews publish immediately after submission.";
+        render(data || []);
+      } catch (error) {
+        status.textContent = "The reviews database request did not complete. Please check your Supabase project and API access, then refresh."; 
+        list.innerHTML = '<div class="review-empty">Customer reviews could not be loaded.</div>';
+        console.error("Stream Zone reviews connection check failed:", error.message);
+      }
     }
     form.addEventListener("submit", async event => {
       event.preventDefault();
