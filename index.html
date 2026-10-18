@@ -92,6 +92,7 @@
     .section-head p { margin: 7px 0 0; color: var(--muted); }
     .products { display: grid; grid-template-columns: repeat(3,1fr); gap: 17px; }
     .product { background: linear-gradient(155deg,#1b1a29,#111119 78%); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; display: flex; flex-direction: column; min-height: 280px; transition: transform .2s,border-color .2s,box-shadow .2s; }
+    .product[id] { scroll-margin-top: 110px; }
     .product { position: relative; overflow: hidden; box-shadow: 0 12px 30px #00000024; }
     .product::before { content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: linear-gradient(90deg,#a78bfa,#22d3ee); opacity: .8; }
     .product:nth-child(1)::before { background: linear-gradient(90deg,#ef4444,#f97316); }
