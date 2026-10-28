@@ -800,22 +800,7 @@
         });
       });
     }
-    if (!("IntersectionObserver" in window) || reduceMotion) return;
-    document.documentElement.classList.add("js-motion");
-    cards.forEach((card, index) => {
-      card.classList.add("reveal-pending");
-      card.style.transitionDelay = (Math.min(index, 5) * 65) + "ms";
-    });
-    const observer = new IntersectionObserver((entries, currentObserver) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.remove("reveal-pending");
-          entry.target.classList.add("revealed");
-          currentObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: "0px 0px -35px 0px" });
-    cards.forEach(card => observer.observe(card));
+    // Product reveal animation removed: cards display immediately without scroll-triggered effects.
   })();
 
   document.getElementById("year").textContent = new Date().getFullYear();
