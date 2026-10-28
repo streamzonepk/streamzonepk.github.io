@@ -272,9 +272,9 @@
 
     /* Premium motion pass: cinematic entrance, ambient light, and subtle card depth */
     @keyframes cinematic-in {
-      0% { opacity: 0; transform: perspective(900px) translateY(34px) rotateX(7deg) scale(.975); filter: blur(7px); }
+      0% { opacity: 0; transform: translateY(24px) scale(.985); filter: blur(7px); }
       70% { opacity: 1; filter: blur(0); }
-      100% { opacity: 1; transform: perspective(900px) translateY(0) rotateX(0) scale(1); filter: blur(0); }
+      100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
     }
     @keyframes ambient-pulse {
       0%,100% { opacity: .42; transform: scale(.96); }
@@ -285,13 +285,12 @@
       50% { translate: 0 -9px; }
     }
     .hero-art .orb { animation: orb-drift 8s ease-in-out infinite, ambient-pulse 6s ease-in-out infinite; }
-    .hero-art .screen { animation: screen-float 6s ease-in-out infinite; transform: translateY(-38px); transform-style: preserve-3d; }
-    .hero-art .screen:hover { animation-play-state: paused; transform: translateY(-44px) rotateX(2deg) rotateY(-2deg); }
-    .js-motion .product.reveal-pending { opacity: 0; filter: blur(7px); transform: perspective(900px) translateY(34px) rotateX(7deg) scale(.975); }
-    .js-motion .product.revealed { opacity: 1; filter: blur(0); transform: perspective(900px) translateY(0) rotateX(0) rotateY(0) scale(1); }
+    .hero-art .screen { animation: screen-float 6s ease-in-out infinite; transform: translateY(-38px); }
+    .hero-art .screen:hover { animation-play-state: paused; transform: translateY(-44px); }
+    .js-motion .product.reveal-pending { opacity: 0; filter: blur(7px); transform: translateY(24px) scale(.985); }
+    .js-motion .product.revealed { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); }
     .product {
-      --tilt-x: 0deg; --tilt-y: 0deg; --spot-x: 50%; --spot-y: 0%;
-      transform-style: preserve-3d;
+      --spot-x: 50%; --spot-y: 0%;
       will-change: transform;
       transition: opacity .65s ease, filter .65s ease, transform .35s cubic-bezier(.2,.8,.2,1), border-color .3s, box-shadow .35s;
     }
@@ -300,16 +299,16 @@
       opacity: 0; transition: opacity .35s ease; z-index: 0;
     }
     .product:hover {
-      transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(-8px) scale(1.012);
+      transform: translateY(-5px) scale(1.005);
       border-color: #a78bfaad;
       box-shadow: 0 28px 65px #0008, 0 0 0 1px #a78bfa18, 0 0 30px #7c3aed18;
     }
     .product:hover::after { opacity: 1; }
-    .product > * { transform: translateZ(12px); }
+    .product > * { transform: none; }
     .product::before { transition: height .25s ease, opacity .25s ease, filter .25s ease; }
     .product:hover::before { height: 4px; opacity: 1; filter: drop-shadow(0 0 7px #a78bfa99); }
     .product .product-icon { transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease; }
-    .product:hover .product-icon { transform: translateZ(24px) rotate(-4deg) scale(1.06); box-shadow: 0 9px 25px #0005, 0 0 18px #a78bfa20; }
+    .product:hover .product-icon { transform: scale(1.04); box-shadow: 0 9px 25px #0005, 0 0 18px #a78bfa20; }
     .btn-primary, .btn-whatsapp { transition: transform .25s cubic-bezier(.2,.8,.2,1), filter .25s, box-shadow .25s; }
     .btn-primary:hover { box-shadow: 0 12px 32px #7c3aed66; }
     .btn-whatsapp:hover { box-shadow: 0 10px 28px #25d36635; }
@@ -763,12 +762,8 @@
           const y = (event.clientY - rect.top) / rect.height;
           card.style.setProperty("--spot-x", (x * 100) + "%");
           card.style.setProperty("--spot-y", (y * 100) + "%");
-          card.style.setProperty("--tilt-y", ((x - .5) * 5) + "deg");
-          card.style.setProperty("--tilt-x", ((.5 - y) * 5) + "deg");
         });
         card.addEventListener("pointerleave", () => {
-          card.style.setProperty("--tilt-x", "0deg");
-          card.style.setProperty("--tilt-y", "0deg");
           card.style.setProperty("--spot-x", "50%");
           card.style.setProperty("--spot-y", "0%");
         });
