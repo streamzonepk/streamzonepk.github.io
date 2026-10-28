@@ -234,6 +234,41 @@
     .review-empty { border:1px dashed #ffffff24; border-radius:14px; padding:22px; color:var(--muted); text-align:center; }
     @media(max-width:800px) { .reviews-grid { grid-template-columns:1fr; } }
 
+
+    /* Polished motion: lightweight, responsive, and respectful of reduced-motion settings */
+    @keyframes hero-rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes orb-drift { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(0,-12px,0) scale(1.025); } }
+    @keyframes glow-breathe { 0%,100% { box-shadow: 0 0 0 rgba(124,58,237,0); } 50% { box-shadow: 0 0 24px rgba(124,58,237,.15); } }
+    @keyframes button-sheen { from { transform: translateX(-140%) skewX(-18deg); } to { transform: translateX(240%) skewX(-18deg); } }
+    .hero > div:first-child { animation: hero-rise .7s both; }
+    .hero-art { animation: hero-rise .85s .12s both; }
+    .orb { animation: orb-drift 7s ease-in-out infinite; }
+    .screen { transition: transform .45s cubic-bezier(.2,.75,.25,1), border-color .3s, box-shadow .3s; }
+    .screen:hover { transform: translateY(-43px) rotateX(1deg); border-color: #a78bfa65; box-shadow: 0 35px 100px #000b, 0 0 34px #7c3aed1c; }
+    .product { opacity: 1; transform: translateY(0); transition: opacity .55s ease, transform .55s cubic-bezier(.2,.75,.25,1), border-color .25s, box-shadow .25s; }
+    .js-motion .product.reveal-pending { opacity: 0; transform: translateY(20px) scale(.985); }
+    .js-motion .product.revealed { opacity: 1; transform: translateY(0) scale(1); }
+    .product:hover { transform: translateY(-7px) scale(1.012); }
+    .product::after { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit; background: radial-gradient(circle at 50% 0%, #a78bfa12, transparent 58%); opacity: 0; transition: opacity .3s; }
+    .product:hover::after { opacity: 1; }
+    .product-head, .product-label, .price-list, .device-options, .product-footnote { position: relative; z-index: 1; }
+    .btn-primary, .btn-whatsapp { position: relative; overflow: hidden; isolation: isolate; }
+    .btn-primary::after, .btn-whatsapp::after { content: ""; position: absolute; inset: -20% auto -20% -45%; width: 30%; background: linear-gradient(90deg, transparent, #ffffff45, transparent); transform: translateX(-140%) skewX(-18deg); pointer-events: none; }
+    .btn-primary:hover::after, .btn-whatsapp:hover::after { animation: button-sheen .75s ease; }
+    .product-count { display: inline-flex; align-items: center; gap: 4px; transition: border-color .25s, background .25s; }
+    .product-count [data-product-count-number] { display: inline-block; min-width: 1ch; color: #fff; font-variant-numeric: tabular-nums; }
+    .step, .faq-item, .review-panel { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+    .step:hover, .review-panel:hover { transform: translateY(-3px); border-color: #a78bfa55; box-shadow: 0 14px 34px #00000024; }
+    .faq-item[open] { border-color: #a78bfa70; }
+    .float-wa { transition: transform .25s ease, box-shadow .25s ease; animation: glow-breathe 4s ease-in-out infinite; }
+    .float-wa:hover { transform: translateY(-4px) scale(1.06); box-shadow: 0 14px 38px #0009, 0 0 24px #25d36645; }
+    .nav-links a:not(.btn), .policy-links a { transition: color .2s ease; }
+    @media (max-width: 800px) { .screen:hover { transform: none; } .product:hover { transform: translateY(-3px); } }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .js-motion .product.reveal-pending { opacity: 1; transform: none; }
+    }
+
   </style>
 </head>
 <body>
@@ -297,7 +332,7 @@
     <div class="wrap">
       <div class="section-head">
         <div><h2>Find your next favourite</h2><p>Choose a product below to place your order manually.</p></div>
-        <span class="tag">10 PRODUCTS · PRICES IN PKR</span>
+        <span class="tag product-count" id="product-count" aria-live="polite"><span data-product-count-number>0</span> PRODUCTS · PRICES IN PKR</span>
       </div>
       <div class="products">
         <article class="product" id="product-netflix">
@@ -591,6 +626,42 @@
       openWhatsApp(`Hi Stream Zone! I'd like to place an order.\n${product} ${planDetails}\nPlease confirm availability & payment details. Thank you.`);
     });
   });
+
+
+  // Keep the product badge tied to the actual product cards, not a hard-coded number.
+  (() => {
+    const grid = document.querySelector("#products .products");
+    const badge = document.getElementById("product-count");
+    const number = badge && badge.querySelector("[data-product-count-number]");
+    if (grid && number) {
+      const updateProductCount = () => {
+        const count = grid.querySelectorAll(":scope > .product").length;
+        number.textContent = String(count);
+        badge.setAttribute("aria-label", count + " products; prices in Pakistani rupees");
+      };
+      updateProductCount();
+      new MutationObserver(updateProductCount).observe(grid, { childList: true });
+    }
+
+    // Reveal product cards gently as they enter the viewport; leave them visible if unsupported.
+    const cards = document.querySelectorAll("#products .products > .product");
+    if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    document.documentElement.classList.add("js-motion");
+    cards.forEach((card, index) => {
+      card.classList.add("reveal-pending");
+      card.style.transitionDelay = (Math.min(index, 5) * 65) + "ms";
+    });
+    const observer = new IntersectionObserver((entries, currentObserver) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove("reveal-pending");
+          entry.target.classList.add("revealed");
+          currentObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -35px 0px" });
+    cards.forEach(card => observer.observe(card));
+  })();
 
   document.getElementById("year").textContent = new Date().getFullYear();
 </script>
