@@ -329,6 +329,49 @@
       .js-motion .product.reveal-pending { opacity: 1; filter: none; transform: none; }
     }
 
+  
+    /* Mobile-first touch transitions: responsive, lightweight, and never block ordering. */
+    @media (hover: none), (pointer: coarse) {
+      .product {
+        -webkit-tap-highlight-color: transparent;
+        transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+      }
+      .product:active {
+        transform: scale(.985);
+        border-color: #a78bfa;
+        box-shadow: 0 0 0 1px #a78bfa38, 0 10px 26px #0005;
+      }
+      .btn, .device-option, .faq-item summary, .float-wa {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+      }
+      .btn:active, .float-wa:active {
+        transform: scale(.96);
+        filter: brightness(1.08);
+      }
+      .device-option:active {
+        transform: scale(.99);
+        background: #7c3aed30;
+      }
+      .faq-item summary:active { background: #a78bfa0c; }
+      .float-wa { animation-duration: 7s; }
+    }
+    .netflix-feature-reveal { animation: mobile-feature-reveal 260ms cubic-bezier(.2,.75,.25,1) both; }
+    @keyframes mobile-feature-reveal {
+      from { opacity: 0; transform: translateY(-7px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 560px) {
+      .hero-art .orb { animation-duration: 11s, 9s; }
+      .js-motion .product.reveal-pending { transform: translateY(18px) scale(.99); }
+      .section-head { scroll-margin-top: 82px; }
+      .product .btn { min-height: 48px; }
+      .float-wa { right: 14px; bottom: max(14px, env(safe-area-inset-bottom)); width: 54px; height: 54px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .netflix-feature-reveal { animation: none !important; }
+    }
+
   </style>
 </head>
 <body>
@@ -669,7 +712,13 @@
         item.setAttribute("aria-pressed", String(item === option));
       });
       netflixSelectionNote.textContent = "Selected: " + selectedNetflixPlan.device + " — " + selectedNetflixPlan.price;
-      document.getElementById("netflix-features").hidden = false;
+      const features = document.getElementById("netflix-features");
+      features.hidden = false;
+      features.classList.remove("netflix-feature-reveal");
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        void features.offsetWidth;
+        features.classList.add("netflix-feature-reveal");
+      }
       netflixOrderButton.disabled = false;
     });
   });
