@@ -371,7 +371,19 @@
       .netflix-feature-reveal { animation: none !important; }
     }
 
-  </style>
+  
+    /* Desktop-only: slightly snappier transitions; mobile timing stays unchanged. */
+    @media (min-width: 801px) and (hover: hover) and (pointer: fine) {
+      .hero > div:first-child { animation-duration: .58s; }
+      .hero-art { animation-duration: .68s; animation-delay: .08s; }
+      .js-motion .product {
+        transition: opacity .45s ease, filter .45s ease, transform .28s cubic-bezier(.2,.8,.2,1), border-color .22s, box-shadow .28s;
+      }
+      .product::after { transition: opacity .25s ease; }
+      .product .product-icon { transition-duration: .28s; }
+    }
+
+</style>
 </head>
 <body>
 <header>
