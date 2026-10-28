@@ -383,6 +383,25 @@
       .product .product-icon { transition-duration: .28s; }
     }
 
+
+    /* Product cards appear promptly: a short opacity fade, with no sliding or blur. */
+    .js-motion .product {
+      transition: opacity .18s ease, border-color .22s ease, box-shadow .22s ease;
+    }
+    .js-motion .product.reveal-pending {
+      opacity: 0;
+      transform: none;
+      filter: none;
+    }
+    .js-motion .product.revealed {
+      opacity: 1;
+      transform: none;
+      filter: none;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .js-motion .product.reveal-pending { opacity: 1; transform: none; filter: none; }
+    }
+
 </style>
 </head>
 <body>
