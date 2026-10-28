@@ -216,6 +216,7 @@
     .review-panel h3 { margin:0 0 7px; }
     .review-muted { color:var(--muted); font-size:.9rem; margin:0 0 17px; }
     .review-form { display:grid; gap:12px; }
+    .review-honeypot { position:absolute !important; left:-10000px !important; width:1px !important; height:1px !important; overflow:hidden !important; }
     .review-form label { display:grid; gap:6px; color:#d7d4e3; font-size:.88rem; font-weight:650; }
     .review-form input,.review-form select,.review-form textarea { width:100%; border:1px solid var(--border); border-radius:10px; padding:12px; color:var(--text); background:#0d0d15; font:inherit; }
     .review-form textarea { min-height:110px; resize:vertical; }
@@ -441,7 +442,7 @@
     <div class="wrap">
       <div class="section-head"><div><h2>How ordering works</h2><p>No online checkout. Just a quick WhatsApp conversation.</p></div></div>
       <div class="how">
-        <div class="step"><div class="step-num">01</div><h3>Choose a product</h3><p>Pick one of the five products and review the available plan or price details.</p></div>
+        <div class="step"><div class="step-num">01</div><h3>Choose a product</h3><p>Pick one of the available products and review the available plan or price details.</p></div>
         <div class="step"><div class="step-num">02</div><h3>Send your request</h3><p>Tap the WhatsApp order button. A message with your selected product is prepared for you.</p></div>
         <div class="step"><div class="step-num">03</div><h3>Confirm manually</h3><p>We’ll reply to confirm availability, final price, payment instructions and fulfilment details.</p></div>
       </div>
@@ -455,11 +456,12 @@
       <div class="reviews-grid">
         <div class="review-panel">
           <h3>Write a review</h3>
-          <p class="review-muted">Reviews appear publicly after you submit them. Please keep feedback genuine and respectful.</p>
+          <p class="review-muted">Reviews are stored by our review provider and appear publicly after submission. Use a display name, avoid sharing personal information, and post only genuine feedback.</p>
           <form id="review-form" class="review-form">
-            <label for="review-name">Display name<input id="review-name" name="display_name" maxlength="50" autocomplete="name" required placeholder="Your name"></label>
+            <label for="review-name">Display name<input id="review-name" name="display_name" maxlength="50" autocomplete="nickname" required placeholder="Your display name"></label>
+            <div class="review-honeypot" aria-hidden="true"><label for="review-website">Leave this field empty<input id="review-website" name="website" tabindex="-1" autocomplete="off"></label></div>
             <label for="review-product">Product<select id="review-product" name="product" required>
-              <option value="">Choose a product</option><option>Netflix</option><option>Prime Video</option><option>Spotify</option><option>IPTV</option><option>HBO Max</option><option>Disney+</option><option>NordVPN</option><option>Canva Edu</option><option>ChatGPT</option><option>CapCut Pro</option><option>Other</option>
+              <option value="">Choose a product</option><option>Netflix</option><option>Amazon Prime Video</option><option>Spotify</option><option>IPTV</option><option>HBO Max</option><option>Disney+</option><option>NordVPN</option><option>Canva Edu</option><option>ChatGPT</option><option>CapCut Pro</option><option>Other</option>
             </select></label>
             <div><label>Rating</label><div class="review-stars" id="review-stars" role="group" aria-label="Choose a star rating">
               <button type="button" data-rating="1" aria-label="1 star" aria-pressed="false">★</button><button type="button" data-rating="2" aria-label="2 stars" aria-pressed="false">★</button><button type="button" data-rating="3" aria-label="3 stars" aria-pressed="false">★</button><button type="button" data-rating="4" aria-label="4 stars" aria-pressed="false">★</button><button type="button" data-rating="5" aria-label="5 stars" aria-pressed="false">★</button>
@@ -650,16 +652,32 @@
     }
     form.addEventListener("submit", async event => {
       event.preventDefault();
+      if (form.elements.website.value.trim()) { status.textContent = "Thanks."; return; }
       if (rating < 1 || rating > 5) { status.textContent = "Please select a star rating."; return; }
+      const cooldownKey = "streamzone-review-last-submit";
+      try {
+        const lastSubmit = Number(sessionStorage.getItem(cooldownKey) || 0);
+        if (Date.now() - lastSubmit < 60000) {
+          status.textContent = "Please wait a minute before submitting another review.";
+          return;
+        }
+      } catch (_) {}
       const submit = form.querySelector('[type="submit"]');
       submit.disabled = true; status.textContent = "Posting your review…";
       const review = {display_name:form.elements.display_name.value.trim(),product:form.elements.product.value,rating,body:form.elements.body.value.trim()};
-      const { error } = await client.from("reviews").insert(review);
-      submit.disabled = false;
-      if (error) { status.textContent = "Your review could not be posted. Please try again later."; console.error("Could not post review:", error.message); return; }
-      form.reset(); rating = 0; stars.querySelectorAll("button").forEach(item => item.setAttribute("aria-pressed","false"));
-      status.textContent = "Thanks! Your review is now published.";
-      await loadReviews();
+      try {
+        const { error } = await client.from("reviews").insert(review);
+        if (error) { status.textContent = "Your review could not be posted. Please try again later."; console.error("Could not post review:", error.message); return; }
+        try { sessionStorage.setItem(cooldownKey, String(Date.now())); } catch (_) {}
+        form.reset(); rating = 0; stars.querySelectorAll("button").forEach(item => item.setAttribute("aria-pressed","false"));
+        status.textContent = "Thanks! Your review is now published.";
+        await loadReviews();
+      } catch (error) {
+        status.textContent = "Your review could not be posted. Please try again later.";
+        console.error("Review submission failed:", error);
+      } finally {
+        submit.disabled = false;
+      }
     });
     loadReviews();
   })();
