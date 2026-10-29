@@ -788,6 +788,7 @@
         item.setAttribute("aria-pressed", String(item === option));
       });
       netflixSelectionNote.textContent = "Selected: " + selectedNetflixPlan.device + " — " + selectedNetflixPlan.price;
+      netflixOrderButton.textContent = "Order Netflix " + selectedNetflixPlan.device;
       const features = document.getElementById("netflix-features");
       features.hidden = false;
       features.classList.remove("netflix-feature-reveal");
