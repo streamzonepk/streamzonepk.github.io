@@ -492,7 +492,7 @@
             </ul>
             <div class="price-note" id="netflix-selection-note">Select one device option to view plan features.</div>
           </div>
-          <button class="btn btn-whatsapp" data-netflix-order disabled>Select any above package</button>
+          <button class="btn btn-whatsapp" data-netflix-order disabled>Choose a Device Above</button>
           <div class="product-footnote">WhatsApp order · monthly price</div>
         </article>
 
@@ -776,7 +776,7 @@
   let selectedNetflixPlan = null;
   const netflixOrderButton = document.querySelector("[data-netflix-order]");
   const netflixSelectionNote = document.getElementById("netflix-selection-note");
-  if (netflixOrderButton) netflixOrderButton.textContent = "Select any above package";
+  if (netflixOrderButton) netflixOrderButton.textContent = "Choose a Device Above";
 
   document.querySelectorAll("[data-netflix-option]").forEach(option => {
     option.addEventListener("click", () => {
