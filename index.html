@@ -107,6 +107,13 @@
     .product p { min-height: 54px; }
     .product .btn { min-height: 46px; }
     .price-list { border-radius: 13px; }
+    .elevenlabs-packages { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+    .elevenlabs-package { min-width: 0; padding: 13px 11px; border: 1px solid rgba(167,139,250,.3); border-radius: 14px; background: linear-gradient(155deg, #201b31, #14141e 78%); text-align: center; }
+    .elevenlabs-credits { color: #f7f6fb; font-size: 1.05rem; font-weight: 800; line-height: 1.35; }
+    .elevenlabs-credits span { display: block; color: #c4b5fd; font-size: .78rem; font-weight: 600; }
+    .elevenlabs-price { margin-top: 9px; font-size: 1.18rem; font-weight: 850; color: #c4b5fd; }
+    .elevenlabs-package .price-note { min-height: 30px; margin: 3px 0 10px; font-size: .72rem; }
+    .elevenlabs-package .btn { width: 100%; padding: 10px 6px; font-size: .76rem; line-height: 1.25; white-space: normal; }
     .device-options { margin-top: 2px; }
     .device-option { min-height: 48px; }
     .product-footnote { color: #8e8ba2; font-size: .76rem; margin: 10px 0 0; text-align: center; }
@@ -598,17 +605,21 @@
             <li>1-month plan</li>
             <li>25 days warranty</li>
           </ul>
-          <div class="price-list">
-            <div class="price-row price-feature"><span>121,000 Credits</span><strong>Rs. 2,500</strong></div>
-            <div class="price-note">1-month package · PKR</div>
+          <div class="elevenlabs-packages">
+            <div class="elevenlabs-package">
+              <div class="elevenlabs-credits">121,000 <span>Credits</span></div>
+              <div class="elevenlabs-price">Rs. 2,500</div>
+              <div class="price-note">1 month · PKR</div>
+              <button class="btn btn-whatsapp" data-order="ElevenLabs — 121,000 Credits" data-plans="Creator Plan — 121,000 Credits — Rs. 2,500; Private account; 1-month plan; 25 days warranty">Choose Package ↗</button>
+            </div>
+            <div class="elevenlabs-package">
+              <div class="elevenlabs-credits">249,000 <span>Credits</span></div>
+              <div class="elevenlabs-price">Rs. 3,300</div>
+              <div class="price-note">1 month · PKR</div>
+              <button class="btn btn-whatsapp" data-order="ElevenLabs — 249,000 Credits" data-plans="Creator Plan — 249,000 Credits — Rs. 3,300; Private account; 1-month plan; 25 days warranty">Choose Package ↗</button>
+            </div>
           </div>
-          <button class="btn btn-whatsapp" data-order="ElevenLabs — 121,000 Credits" data-plans="Creator Plan — 121,000 Credits — Rs. 2,500; Private account; 1-month plan; 25 days warranty">Order 121,000 Credits ↗</button>
-          <div class="price-list" style="margin-top:18px">
-            <div class="price-row price-feature"><span>249,000 Credits</span><strong>Rs. 3,300</strong></div>
-            <div class="price-note">1-month package · PKR</div>
-          </div>
-          <button class="btn btn-whatsapp" data-order="ElevenLabs — 249,000 Credits" data-plans="Creator Plan — 249,000 Credits — Rs. 3,300; Private account; 1-month plan; 25 days warranty">Order 249,000 Credits ↗</button>
-          <div class="product-footnote">WhatsApp order · choose your credit package</div>
+          <div class="product-footnote">Select a package to order via WhatsApp</div>
         </article>
         <article class="product" id="product-cursor-ai">
           <div class="product-head"><div class="product-icon" style="background:#fff;color:#111"><img class="brand-logo" src="https://cursor.com/assets/images/logo.svg" alt="Cursor logo"></div><div><h3>Cursor AI</h3><div class="sub">AI-powered coding editor</div></div></div>
