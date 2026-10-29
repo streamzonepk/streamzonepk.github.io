@@ -93,7 +93,7 @@
     .section-head h2 { margin: 0; font-size: clamp(1.8rem,4vw,2.55rem); letter-spacing: -.045em; }
     .section-head p { margin: 7px 0 0; color: var(--muted); }
     .products { display: grid; grid-template-columns: repeat(3,1fr); gap: 17px; }
-    .product { background: linear-gradient(155deg,#1b1a29,#111119 78%); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; display: flex; flex-direction: column; min-height: 280px; transition: transform .2s,border-color .2s,box-shadow .2s; }
+    .product { background: radial-gradient(ellipse at 0% 0%, rgba(139,92,246,.22) 0%, rgba(99,102,241,.10) 32%, transparent 68%), linear-gradient(145deg,#211b35 0%,#171522 48%,#111119 100%); border: 1px solid rgba(167,139,250,.24); border-radius: var(--radius); padding: 22px; display: flex; flex-direction: column; min-height: 280px; transition: transform .2s,border-color .2s,box-shadow .2s,background .2s; }
     .product[id] { scroll-margin-top: 110px; }
     .product { position: relative; overflow: hidden; box-shadow: 0 12px 30px #00000024; }
     .product::before { content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: linear-gradient(90deg,#a78bfa,#22d3ee); opacity: .8; }
@@ -117,7 +117,7 @@
     .device-options { margin-top: 2px; }
     .device-option { min-height: 48px; }
     .product-footnote { color: #8e8ba2; font-size: .76rem; margin: 10px 0 0; text-align: center; }
-    .product:hover { transform: translateY(-4px); border-color: #a78bfa8a; box-shadow: 0 18px 42px #00000038; }
+    .product:hover { transform: translateY(-4px); border-color: #a78bfaad; background: radial-gradient(ellipse at 0% 0%, rgba(139,92,246,.29) 0%, rgba(99,102,241,.13) 34%, transparent 70%), linear-gradient(145deg,#28203f 0%,#1a1729 48%,#13121d 100%); box-shadow: 0 18px 42px #00000045, 0 0 24px rgba(124,58,237,.10); }
     .product-head { display: flex; align-items: center; gap: 14px; min-height: 60px; }
     .product-icon { width: 58px; height: 58px; flex: 0 0 58px; border-radius: 16px; display: flex; align-items: center; justify-content: center; padding: 10px; font-size: 1.4rem; font-weight: 900; background: #252337; box-shadow: inset 0 1px 0 #ffffff12; }
     .brand-logo { display: block; width: 38px; height: 38px; object-fit: contain; }
