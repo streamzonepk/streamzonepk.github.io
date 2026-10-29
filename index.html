@@ -191,8 +191,8 @@
     .payment-note { margin-top: 18px; padding: 19px 21px; border: 1px solid #a78bfa35; border-radius: 15px; background: #7c3aed12; color: #d8d4e8; }
     .payment-note strong { color: white; }
     .payment-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-    .payment-tag { border: 1px solid var(--border); background: #ffffff08; border-radius: 9px; padding: 10px 14px; display: flex; align-items: center; justify-content: center; min-width: 155px; min-height: 58px; }\n    .payment-logo { display: block; width: 100%; max-width: 145px; height: 38px; object-fit: contain; }\n    .float-wa { position: fixed; right: 20px; bottom: 20px; z-index: 20; width: 58px; height: 58px; display: grid; place-items: center; border-radius: 50%; background: var(--green); color: #062b14; box-shadow: 0 10px 35px #0008; }
-    .float-wa svg { width: 28px; height: 28px; }
+    .payment-tag { border: 1px solid var(--border); background: #ffffff08; border-radius: 9px; padding: 10px 14px; display: flex; align-items: center; justify-content: center; min-width: 155px; min-height: 58px; }\n    .payment-logo { display: block; width: 100%; max-width: 145px; height: 38px; object-fit: contain; }\n    .float-wa { position: fixed; right: 20px; bottom: 20px; z-index: 20; width: 60px; height: 60px; display: grid; place-items: center; border-radius: 50%; background: var(--green); color: #ffffff; box-shadow: 0 10px 35px #0008; border: 2px solid #ffffff35; }
+    .float-wa svg { width: 30px; height: 30px; }
     @media (max-width: 800px) {
       .hero { grid-template-columns: 1fr; padding-top: 10px; gap: 10px; }
       .hero-art { min-height: 300px; }
@@ -268,7 +268,7 @@
     .step:hover, .review-panel:hover { transform: translateY(-3px); border-color: #a78bfa55; box-shadow: 0 14px 34px #00000024; }
     .faq-item[open] { border-color: #a78bfa70; }
     .float-wa { transition: transform .25s ease, box-shadow .25s ease; animation: glow-breathe 4s ease-in-out infinite; }
-    .float-wa:hover { transform: translateY(-4px) scale(1.06); box-shadow: 0 14px 38px #0009, 0 0 24px #25d36645; }
+    .float-wa:hover { transform: translateY(-4px) scale(1.06); box-shadow: 0 14px 38px #0009, 0 0 24px #1fb85a70; }
     .nav-links a:not(.btn), .policy-links a { transition: color .2s ease; }
     @media (max-width: 800px) { .screen:hover { transform: none; } .product:hover { transform: translateY(-3px); } }
     @media (prefers-reduced-motion: reduce) {
@@ -753,7 +753,7 @@
   </div>
 </footer>
 
-<a class="float-wa" href="#" data-general-wa aria-label="Contact Stream Zone on WhatsApp">
+<a class="float-wa" href="#" data-general-wa aria-label="Chat with Stream Zone on WhatsApp" title="Chat with us on WhatsApp">
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.6 4.1 1.6 5.9L.2 24l6.5-1.7a11.8 11.8 0 0 0 5.4 1.3h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.1-3.5-8.3ZM12.2 21.6c-1.7 0-3.4-.5-4.8-1.3l-.4-.2-3.9 1 1-3.8-.3-.4a9.7 9.7 0 0 1-1.5-5.1c0-5.4 4.4-9.8 9.8-9.8 2.6 0 5.1 1 6.9 2.9a9.7 9.7 0 0 1 2.9 6.9c0 5.4-4.4 9.8-9.8 9.8Zm5.4-7.3c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.1 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.4Z"/></svg>
 </a>
 
