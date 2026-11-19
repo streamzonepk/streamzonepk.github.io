@@ -25,6 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/store.css?v=1">
 <style>
 :root{--bg:#F3F5F9;--ink:#14213D;--ink2:#0C1630;--muted:#5B6478;--y:#FFC93C;--go:#0F8A4B;--white:#fff;--line:#E1E5EE;--wide:"wdth" 125;--r:12px}
 *{box-sizing:border-box}
@@ -451,6 +452,7 @@ body{padding-bottom:64px}
 </section>
 </div>
 </main>
+<div id="view" class="wrap" hidden></div>
 <footer>
 <div class="wrap">
 <div class="ffeat">
@@ -755,5 +757,8 @@ toast("Order opened in WhatsApp. Tap send there to finish.");
 let tt;
 function toast(msg){ const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(tt); tt = setTimeout(() => t.classList.remove("show"), 2600); }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="assets/js/store.js?v=1"></script>
 </body>
 </html>
