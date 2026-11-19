@@ -21,7 +21,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Stream Zone Pakistan | Digital Subscription Prices">
 <meta name="twitter:image" content="https://streamzonepk.github.io/social-preview.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Stream Zone","alternateName":["Stream Zone Pakistan","streamzonepk.github.io"],"url":"https://streamzonepk.github.io/","inLanguage":"en-PK"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://streamzonepk.github.io/#website","name":"Stream Zone","alternateName":["Stream Zone Pakistan","streamzonepk.github.io"],"url":"https://streamzonepk.github.io/","inLanguage":"en-PK","publisher":{"@id":"https://streamzonepk.github.io/#org"}},{"@type":"OnlineStore","@id":"https://streamzonepk.github.io/#org","name":"Stream Zone","url":"https://streamzonepk.github.io/","logo":"https://streamzonepk.github.io/favicon.svg","image":"https://streamzonepk.github.io/social-preview.png","description":"Digital subscriptions and AI tools in Pakistan, priced in PKR. Pay with Easypaisa or JazzCash.","areaServed":"PK","currenciesAccepted":"PKR","paymentAccepted":"Easypaisa, JazzCash","sameAs":["https://instagram.com/streamzonepk.official"],"contactPoint":{"@type":"ContactPoint","telephone":"+92-309-4839648","contactType":"customer service","areaServed":"PK","availableLanguage":["en","ur"]}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
@@ -359,7 +359,7 @@ body{padding-bottom:64px}
 <div class="wrap">
 <section class="banner" aria-label="Welcome">
 <div>
-<h1>All your favourite apps, <em>paid in rupees</em></h1>
+<h1>Digital subscriptions in Pakistan, <em>paid in rupees</em></h1>
 <p>Choose a plan, add it to your cart and send the order on WhatsApp. We confirm everything before you pay.</p>
 <div class="chips">
 <span><b>Plan details</b><small>Before payment</small></span>
@@ -394,7 +394,7 @@ body{padding-bottom:64px}
 <div class="grid" id="streamGrid"></div>
 </section>
 <section class="sec" id="all" aria-labelledby="h-all" style="scroll-margin-top:96px">
-<div class="sh"><h2 id="h-all">All products</h2><button id="clearFilter" hidden>Show all products</button></div>
+<div class="sh"><h2 id="h-all">All products</h2><button id="clearFilter" hidden>Show all products</button><a href="/products/">Compare all prices</a></div>
 <div class="grid" id="allGrid"></div>
 </section>
 <section class="sec" aria-labelledby="h-ex">
@@ -441,6 +441,7 @@ body{padding-bottom:64px}
 </section>
 <section class="sec" id="faq" aria-labelledby="h-faq" style="scroll-margin-top:96px">
 <div class="sh"><h2 id="h-faq">Frequently asked questions</h2></div>
+<p class="faq" style="padding:18px 22px;margin:0 0 14px;color:var(--muted)">Stream Zone sells digital subscriptions and AI tools to customers across Pakistan, with every price in rupees. Buy <a href="/products/netflix.html">Netflix</a>, <a href="/products/prime.html">Prime Video</a>, <a href="/products/spotify.html">Spotify Premium</a>, <a href="/products/youtube.html">YouTube Premium</a>, <a href="/products/chatgpt.html">ChatGPT Plus</a>, <a href="/products/canva.html">Canva</a>, <a href="/products/nordvpn.html">NordVPN</a> and <a href="/products/">more</a>, pay with Easypaisa or JazzCash, and get your login details on your order page and by email. Read our <a href="/refund-policy.html">refund and replacement policy</a>.</p>
 <div class="faq">
 <details><summary>Are these official subscriptions?</summary><p>Stream Zone is an independent shop, not part of Netflix, Spotify or any other brand. Some plans are personal accounts and some are shared. We'll tell you exactly which type you're getting before you pay.</p></details>
 <details><summary>How do I pay?</summary><p>After we confirm your order on WhatsApp, we send our Easypaisa or JazzCash account. Send the payment and share the receipt screenshot with us.</p></details>
@@ -472,7 +473,7 @@ body{padding-bottom:64px}
 </div>
 <div><h4>Shop</h4><div id="footCats"></div></div>
 <div><h4>Information</h4>
-<a href="#how">How to order</a><a href="#faq">FAQs</a><a href="/privacy.html">Privacy policy</a><a href="/terms.html">Terms</a>
+<a href="#how">How to order</a><a href="#faq">FAQs</a><a href="/products/">All prices</a><a href="/refund-policy.html">Refund policy</a><a href="/privacy.html">Privacy policy</a><a href="/terms.html">Terms</a>
 <a class="wa" data-msg="Assalam o Alaikum, I'm looking for a subscription that isn't on your website: " href="#">Request a product</a>
 </div>
 <div><h4>My orders</h4>
@@ -611,8 +612,8 @@ $("#catrow").innerHTML = CATEGORIES.map(c =>
 $("#catmenu").innerHTML = `<a href="#all" data-filter="">All products<span>${PRODUCTS.length}</span></a>` + CATEGORIES.map(c => `<a href="#all" data-filter="${c.id}">${esc(c.name)}<span>${catCount(c.id)}</span></a>`).join("");
 $("#footCats").innerHTML = `<a href="#all" data-filter="">All products</a>` + CATEGORIES.map(c => `<a href="#all" data-filter="${c.id}">${esc(c.name)}</a>`).join("");
 $("#track").innerHTML = [...PRODUCTS, ...PRODUCTS].map(p => `<span>${esc(p.name)}</span>`).join("");
-$("#popList").innerHTML = PRODUCTS.filter(p => p.cat === "streaming" || p.cat === "music" || p.cat === "vpn").map(p => `<a href="#" data-view="${p.id}">${esc(p.name)} Pakistan</a>`).join("");
-$("#aiList").innerHTML = PRODUCTS.filter(p => p.cat === "ai" || p.cat === "creative").map(p => `<a href="#" data-view="${p.id}">${esc(p.name)} in Pakistan</a>`).join("");
+$("#popList").innerHTML = PRODUCTS.filter(p => p.cat === "streaming" || p.cat === "music" || p.cat === "vpn").map(p => `<a href="/products/${p.id}.html">${esc(p.name)} price in Pakistan</a>`).join("");
+$("#aiList").innerHTML = PRODUCTS.filter(p => p.cat === "ai" || p.cat === "creative").map(p => `<a href="/products/${p.id}.html">${esc(p.name)} price in Pakistan</a>`).join("");
 $$("a.wa").forEach(a => { a.href = waLink(a.dataset.msg || ""); a.target = "_blank"; a.rel = "noopener"; });
 $("#insta").href = $("#instaTile").href = INSTAGRAM_URL;
 $("#yr").textContent = new Date().getFullYear();
@@ -624,7 +625,7 @@ return `<article class="card" data-view="${p.id}">
 <div class="top">${p.best ? '<span class="badge">Best seller</span>' : ""}
 <button class="heart" data-save="${p.id}" aria-pressed="${on}" aria-label="${on ? "Remove" : "Save"} ${esc(p.name)}"><svg><use href="#heart"/></svg></button></div>
 <div class="art">${tile(p)}</div>
-<h3><a href="#" data-view="${p.id}">${esc(p.name)}</a></h3>
+<h3><a href="/products/${p.id}.html" data-view="${p.id}">${esc(p.name)}</a></h3>
 <div class="cn">${esc(catOf(p.cat).name)}</div>
 <div class="pr"><span><b>${rs(minPrice(p))}</b><small>${p.options ? "Starting price, per month" : "Per month"}</small></span>
 <button class="addc" ${p.options ? `data-view="${p.id}" aria-label="Choose a plan for ${esc(p.name)}"` : `data-add="${p.id}" aria-label="Add ${esc(p.name)} to cart"`}><svg><use href="#cart"/></svg></button></div>
@@ -759,6 +760,6 @@ function toast(msg){ const t = $("#toast"); t.textContent = msg; t.classList.add
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase-config.js"></script>
-<script src="assets/js/store.js?v=2"></script>
+<script src="assets/js/store.js?v=3"></script>
 </body>
 </html>
