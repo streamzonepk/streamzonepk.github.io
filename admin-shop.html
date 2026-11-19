@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Store admin | Stream Zone</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F3F5F9;--ink:#14213D;--muted:#5B6478;--y:#FFC93C;--go:#0F8A4B;--line:#E1E5EE}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15px;line-height:1.5}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--y);outline-offset:2px}
+.wrap{max-width:1280px;margin:0 auto;padding:0 20px}
+header{background:var(--ink);color:#fff}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:850;letter-spacing:-.04em;font-size:1.15rem}
+.logo .mark{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,#7c3aed,#4f46e5)}
+.logo .mark svg{width:22px;height:22px}
+.logo span{color:#b9a1ff}
+.logo small{color:#A9B2C8;font-weight:500;letter-spacing:0;font-size:13px}
+header nav{display:flex;gap:10px;align-items:center}
+header nav a{color:#C9D0E0;text-decoration:none;font-size:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--ink);color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:10px 16px;border-radius:10px;border:0;cursor:pointer;white-space:nowrap}
+.btn.go{background:var(--go)}.btn.y{background:var(--y);color:var(--ink)}.btn.bad{background:#fff;color:#B3261E;border:1.5px solid #F2C6C3}.btn.out{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+.btn.ghost{background:transparent;color:#fff;border:1px solid #3A4870}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px}
+.hidden{display:none!important}
+.auth{max-width:420px;margin:60px auto}
+.form{display:grid;gap:12px}
+.form label{display:grid;gap:5px;font-size:13.5px;font-weight:600}
+input,select,textarea{font:inherit;font-size:14.5px;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);width:100%}
+textarea{min-height:100px;resize:vertical}
+input:focus,select:focus,textarea:focus{border-color:var(--ink);outline:none}
+.msg{border-radius:10px;padding:11px 13px;font-size:14px;margin:0}
+.msg.err{background:#FDE7E9;color:#8C1D18}.msg.ok{background:#DFF5E7;color:#0B4D2C}
+.msg:empty{display:none}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:22px 0}
+.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;text-align:left}
+.stat b{display:block;font-size:24px}
+.stat span{font-size:13px;color:var(--muted)}
+@media (max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}}
+.tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin-bottom:16px}
+.tabs button{background:none;border:0;padding:12px 14px;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;color:var(--muted)}
+.tabs button[aria-selected="true"]{color:var(--ink);border-color:var(--ink)}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.bar select,.bar input{width:auto;min-width:180px}
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-size:12px;color:var(--muted);font-weight:600;padding:9px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:12px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+tr.row{cursor:pointer}
+tr.row:hover td{background:#F8F9FC}
+.ref{font-weight:800}
+.pill{display:inline-block;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;background:#ECEEF3;white-space:nowrap}
+.pill.warn{background:#FFF1CC;color:#8A5A00}.pill.info{background:#E4E9FB;color:#2B4BC2}.pill.ok{background:#DFF5E7;color:#0B6B3A}.pill.bad{background:#FDE7E9;color:#B3261E}
+.muted{color:var(--muted)}
+.empty{text-align:center;padding:36px;color:var(--muted)}
+.overlay{position:fixed;inset:0;background:rgba(10,20,48,.55);z-index:40}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(640px,100%);background:#fff;z-index:50;overflow:auto;padding:22px 24px 40px}
+.drawer h2{margin:0;font-size:22px}
+.x{position:absolute;top:16px;right:16px;background:var(--bg);border:0;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:20px}
+.kv{display:grid;grid-template-columns:130px 1fr;gap:8px 14px;font-size:14px;margin:16px 0}
+.kv dt{color:var(--muted)}.kv dd{margin:0;font-weight:600;word-break:break-word}
+.items{border:1px solid var(--line);border-radius:12px;padding:6px 14px;margin:12px 0}
+.items div{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.items div:last-child{border:0;font-weight:800}
+.rcpt{border:1px solid var(--line);border-radius:12px;padding:12px;margin:12px 0;text-align:center}
+.rcpt img{max-width:100%;max-height:420px;border-radius:8px}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.thread{display:grid;gap:10px;margin:16px 0}
+.bubble{max-width:85%;border-radius:14px;padding:11px 13px;font-size:14px;white-space:pre-wrap}
+.bubble.c{justify-self:start;background:var(--bg)}
+.bubble.a{justify-self:end;background:var(--ink);color:#fff}
+.bubble small{display:block;font-size:11.5px;opacity:.7;margin-top:5px}
+.bubble a{color:inherit}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;z-index:60;font-size:14px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="logo" href="/"><span class="mark"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 4.8c0-.8.9-1.3 1.6-.9l12 7.1c.7.4.7 1.4 0 1.8l-12 7.1c-.7.4-1.6-.1-1.6-.9V4.8Z" fill="white"/></svg></span>STREAM <span>ZONE</span> <small>Store admin</small></a>
+  <nav><a href="admin.html">Manual records</a><button id="out" class="btn ghost hidden" type="button">Sign out</button></nav>
+</div></header>
+
+<main class="wrap">
+  <section id="login" class="panel auth hidden">
+    <h1 style="margin:0 0 6px;font-size:24px">Store admin</h1>
+    <p class="muted" style="margin:0 0 16px">Sign in with your admin account to manage orders and complaints.</p>
+    <form class="form" id="lf" novalidate>
+      <label>Admin email<input name="email" type="email" autocomplete="username" required></label>
+      <label>Password<input name="password" type="password" autocomplete="current-password" required></label>
+      <button class="btn" type="submit">Sign in</button>
+      <p class="msg" role="alert"></p>
+    </form>
+  </section>
+
+  <section id="app" class="hidden">
+    <div class="stats" id="stats"></div>
+    <div class="panel">
+      <div class="tabs" role="tablist">
+        <button role="tab" id="tabO" aria-selected="true">Orders</button>
+        <button role="tab" id="tabC" aria-selected="false">Complaints</button>
+      </div>
+      <div id="paneO">
+        <div class="bar"><select id="fStatus"><option value="">All orders</option><option>Awaiting payment</option><option selected>Under review</option><option>Approved</option><option>Delivered</option><option>Rejected</option><option>Cancelled</option></select>
+          <input id="fSearch" type="search" placeholder="Search order ID, name, phone"><button class="btn out" id="refresh" type="button">Refresh</button></div>
+        <div class="tbl-wrap" id="oList"></div>
+      </div>
+      <div id="paneC" class="hidden">
+        <div class="bar"><select id="cStatus"><option value="">All complaints</option><option selected value="active">Open and in progress</option><option>Open</option><option>In progress</option><option>Resolved</option><option>Closed</option></select></div>
+        <div class="tbl-wrap" id="cList"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="overlay hidden" id="ov"></div>
+<aside class="drawer hidden" id="dr" role="dialog" aria-modal="true"></aside>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script>
+const cfg = window.STREAMZONE_SUPABASE || {};
+const sb = window.supabase.createClient(cfg.url, cfg.anonKey);
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const rs = n => "Rs " + Number(n).toLocaleString("en-PK");
+const when = d => new Date(d).toLocaleString("en-PK", { day:"numeric", month:"short", hour:"numeric", minute:"2-digit" });
+const CLS = { "Awaiting payment":"warn", "Under review":"info", "Approved":"ok", "Delivered":"ok", "Rejected":"bad", "Open":"warn", "In progress":"info", "Resolved":"ok" };
+const pill = s => `<span class="pill ${CLS[s] || ""}">${esc(s)}</span>`;
+const waNum = p => { let d = String(p || "").replace(/\D/g, ""); if (d.startsWith("0")) d = "92" + d.slice(1); return d; };
+const wa = (p, msg) => `https://wa.me/${waNum(p)}?text=${encodeURIComponent(msg)}`;
+function toast(t){ const el = document.createElement("div"); el.className = "toast"; el.textContent = t; document.body.appendChild(el); setTimeout(() => el.remove(), 2600); }
+let orders = [], complaints = [];
+
+async function boot(){
+  const { data } = await sb.auth.getSession();
+  if (!data.session) return showLogin();
+  const { data: ok } = await sb.rpc("is_admin");
+  if (!ok) { await sb.auth.signOut(); return showLogin("This account is not an admin."); }
+  $("#login").classList.add("hidden"); $("#app").classList.remove("hidden"); $("#out").classList.remove("hidden");
+  await loadAll();
+}
+function showLogin(err){ $("#app").classList.add("hidden"); $("#out").classList.add("hidden"); $("#login").classList.remove("hidden"); const m = $("#lf .msg"); m.className = "msg" + (err ? " err" : ""); m.textContent = err || ""; }
+$("#lf").addEventListener("submit", async e => {
+  e.preventDefault(); const f = e.target;
+  const { error } = await sb.auth.signInWithPassword({ email: f.email.value.trim(), password: f.password.value });
+  if (error) return showLogin("Email or password is wrong.");
+  boot();
+});
+$("#out").addEventListener("click", async () => { await sb.auth.signOut(); showLogin(); });
+
+async function loadAll(){
+  const [o, c] = await Promise.all([
+    sb.from("shop_orders").select("*").order("created_at", { ascending: false }).limit(500),
+    sb.from("complaints").select("*").order("updated_at", { ascending: false }).limit(500),
+  ]);
+  if (o.error || c.error) return toast((o.error || c.error).message);
+  orders = o.data; complaints = c.data; paint();
+}
+function paint(){
+  const n = s => orders.filter(o => o.status === s).length;
+  const openC = complaints.filter(c => ["Open", "In progress"].includes(c.status)).length;
+  $("#stats").innerHTML = [["Under review", n("Under review"), "Receipts to check"], ["Awaiting payment", n("Awaiting payment"), "Waiting for payment"], ["Approved", n("Approved"), "Approved, not delivered"], ["Delivered", n("Delivered"), "Delivered"], ["complaints", openC, "Open complaints"]]
+    .map(([k, v, t]) => `<button class="stat" data-k="${k}"><b>${v}</b><span>${t}</span></button>`).join("");
+  document.querySelectorAll(".stat").forEach(b => b.addEventListener("click", () => { if (b.dataset.k === "complaints") { tab("C"); $("#cStatus").value = "active"; } else { tab("O"); $("#fStatus").value = b.dataset.k; } paintLists(); }));
+  paintLists();
+}
+function paintLists(){
+  const fs = $("#fStatus").value, q = $("#fSearch").value.trim().toLowerCase();
+  const ol = orders.filter(o => (!fs || o.status === fs) && (!q || `${o.order_ref} ${o.customer_name} ${o.customer_phone} ${o.customer_email}`.toLowerCase().includes(q)));
+  $("#oList").innerHTML = ol.length ? `<table><thead><tr><th>Order</th><th>Placed</th><th>Customer</th><th>Items</th><th>Total</th><th>Payment</th><th>Status</th></tr></thead><tbody>${ol.map(o => `<tr class="row" data-o="${o.id}"><td class="ref">${esc(o.order_ref)}</td><td>${when(o.created_at)}</td><td>${esc(o.customer_name)}<br><small class="muted">${esc(o.customer_phone)}</small></td><td>${esc(o.items.map(i => i.name + (i.option ? " (" + i.option + ")" : "") + (i.qty > 1 ? " ×" + i.qty : "")).join(", "))}</td><td>${rs(o.total)}</td><td>${esc(o.payment_method)}${o.receipt_path ? "<br><small class=muted>Receipt uploaded</small>" : ""}</td><td>${pill(o.status)}</td></tr>`).join("")}</tbody></table>` : `<div class="empty">No orders here.</div>`;
+  const cs = $("#cStatus").value;
+  const cl = complaints.filter(c => !cs || (cs === "active" ? ["Open", "In progress"].includes(c.status) : c.status === cs));
+  $("#cList").innerHTML = cl.length ? `<table><thead><tr><th>Ticket</th><th>Updated</th><th>Subject</th><th>Type</th><th>Order</th><th>Status</th></tr></thead><tbody>${cl.map(c => `<tr class="row" data-c="${c.id}"><td class="ref">${esc(c.ticket_ref)}</td><td>${when(c.updated_at)}</td><td>${esc(c.subject)}</td><td>${esc(c.category)}</td><td>${esc(c.order_ref || "–")}</td><td>${pill(c.status)}</td></tr>`).join("")}</tbody></table>` : `<div class="empty">No complaints here.</div>`;
+  document.querySelectorAll("[data-o]").forEach(r => r.addEventListener("click", () => openOrder(r.dataset.o)));
+  document.querySelectorAll("[data-c]").forEach(r => r.addEventListener("click", () => openComplaint(r.dataset.c)));
+}
+function tab(t){ $("#tabO").setAttribute("aria-selected", t === "O"); $("#tabC").setAttribute("aria-selected", t === "C"); $("#paneO").classList.toggle("hidden", t !== "O"); $("#paneC").classList.toggle("hidden", t !== "C"); }
+$("#tabO").addEventListener("click", () => tab("O")); $("#tabC").addEventListener("click", () => tab("C"));
+$("#fStatus").addEventListener("change", paintLists); $("#fSearch").addEventListener("input", paintLists); $("#cStatus").addEventListener("change", paintLists);
+$("#refresh").addEventListener("click", loadAll);
+
+const dr = $("#dr"), ov = $("#ov");
+function openDrawer(html){ dr.innerHTML = `<button class="x" id="dx" aria-label="Close">×</button>` + html; dr.classList.remove("hidden"); ov.classList.remove("hidden"); $("#dx").addEventListener("click", closeDrawer); }
+function closeDrawer(){ dr.classList.add("hidden"); ov.classList.add("hidden"); }
+ov.addEventListener("click", closeDrawer);
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeDrawer(); });
+
+async function openOrder(id){
+  const o = orders.find(x => x.id === id);
+  let rc = "";
+  if (o.receipt_path) {
+    const { data } = await sb.storage.from("receipts").createSignedUrl(o.receipt_path, 3600);
+    rc = data ? (/\.pdf$/i.test(o.receipt_path) ? `<a class="btn out" href="${data.signedUrl}" target="_blank" rel="noopener">Open PDF receipt</a>` : `<a href="${data.signedUrl}" target="_blank" rel="noopener"><img src="${data.signedUrl}" alt="Payment receipt"></a>`) : "Couldn't load the receipt.";
+  }
+  openDrawer(`<h2>Order ${esc(o.order_ref)}</h2><p class="muted" style="margin:4px 0 0">Placed ${when(o.created_at)} · ${pill(o.status)}</p>
+    <dl class="kv"><dt>Customer</dt><dd>${esc(o.customer_name)}</dd><dt>WhatsApp</dt><dd><a href="${wa(o.customer_phone, "Assalam o Alaikum " + o.customer_name + ", about your Stream Zone order " + o.order_ref + ".")}" target="_blank" rel="noopener">${esc(o.customer_phone)}</a></dd><dt>Email</dt><dd>${esc(o.customer_email || "–")}</dd><dt>Payment</dt><dd>${esc(o.payment_method)} · ${rs(o.total)}</dd>${o.customer_note ? `<dt>Customer note</dt><dd>${esc(o.customer_note)}</dd>` : ""}</dl>
+    <div class="items">${o.items.map(i => `<div><span>${esc(i.name)}${i.option ? " – " + esc(i.option) : ""} × ${i.qty}</span><span>${rs(i.line_total)}</span></div>`).join("")}<div><span>Total</span><span>${rs(o.total)}</span></div></div>
+    <h3 style="margin:18px 0 6px;font-size:16px">Payment receipt</h3><div class="rcpt">${rc || '<span class="muted">No receipt uploaded yet.</span>'}</div>
+    <div class="acts"><button class="btn go" data-set="Approved">Approve payment</button><button class="btn bad" data-set="Rejected">Reject payment</button></div>
+    <form class="form" id="of">
+      <label>Status<select name="status">${["Awaiting payment", "Under review", "Approved", "Delivered", "Rejected", "Cancelled"].map(s => `<option ${s === o.status ? "selected" : ""}>${s}</option>`).join("")}</select></label>
+      <label>Login details for the customer<textarea name="delivery" placeholder="Email: ...&#10;Password: ...&#10;Profile: ...">${esc(o.delivery_details || "")}</textarea><small class="muted" style="font-weight:400">The customer sees this on their order page.</small></label>
+      <label>Message to customer (shown on their order)<input name="note" value="${esc(o.admin_note || "")}" placeholder="For example, Payment received, activating now"></label>
+      <div class="acts" style="margin:0"><button class="btn" type="submit">Save</button><button class="btn y" type="button" id="deliver">Save and mark delivered</button>
+      <a class="btn out" id="sendWa" target="_blank" rel="noopener" href="#">Send details on WhatsApp</a></div>
+      <p class="msg" role="alert"></p>
+    </form>`);
+  const f = $("#of");
+  const save = async status => {
+    const m = f.querySelector(".msg");
+    const { error } = await sb.from("shop_orders").update({ status: status || f.status.value, delivery_details: f.delivery.value.trim() || null, admin_note: f.note.value.trim() || null }).eq("id", o.id);
+    if (error) { m.className = "msg err"; m.textContent = error.message; return; }
+    toast("Saved"); await loadAll(); openOrder(o.id);
+  };
+  f.addEventListener("submit", e => { e.preventDefault(); save(); });
+  $("#deliver").addEventListener("click", () => { if (!f.delivery.value.trim()) { const m = f.querySelector(".msg"); m.className = "msg err"; m.textContent = "Add the login details first."; return; } save("Delivered"); });
+  dr.querySelectorAll("[data-set]").forEach(b => b.addEventListener("click", () => { f.status.value = b.dataset.set; if (b.dataset.set === "Rejected" && !f.note.value) f.note.value = "We couldn't find this payment. Please upload a clear receipt or contact us."; save(b.dataset.set); }));
+  const setWa = () => $("#sendWa").href = wa(o.customer_phone, `Assalam o Alaikum ${o.customer_name}, your Stream Zone order ${o.order_ref} is ready.\n\n${f.delivery.value.trim()}\n\nYou can also see these details on your order page: https://streamzonepk.github.io/#/orders/${o.order_ref}`);
+  f.delivery.addEventListener("input", setWa); setWa();
+}
+
+async function openComplaint(id){
+  const c = complaints.find(x => x.id === id);
+  const { data: msgs, error } = await sb.from("complaint_messages").select("*").eq("complaint_id", id).order("created_at");
+  if (error) return toast(error.message);
+  const o = orders.find(x => x.order_ref === c.order_ref);
+  const links = {};
+  for (const m of msgs) if (m.attachment_path) { const { data } = await sb.storage.from("receipts").createSignedUrl(m.attachment_path, 3600); if (data) links[m.id] = data.signedUrl; }
+  openDrawer(`<h2>${esc(c.subject)}</h2><p class="muted" style="margin:4px 0 0">${esc(c.ticket_ref)} · ${esc(c.category)} · ${pill(c.status)}</p>
+    <dl class="kv">${c.order_ref ? `<dt>Order</dt><dd>${o ? `<a href="#" id="toOrder">${esc(c.order_ref)}</a> · ${esc(o.items.map(i => i.name).join(", "))} · ${pill(o.status)}` : esc(c.order_ref)}</dd>` : ""}${o ? `<dt>Customer</dt><dd>${esc(o.customer_name)} · <a href="${wa(o.customer_phone, "Assalam o Alaikum, about your complaint " + c.ticket_ref + ".")}" target="_blank" rel="noopener">${esc(o.customer_phone)}</a></dd>` : ""}<dt>Opened</dt><dd>${when(c.created_at)}</dd></dl>
+    <div class="thread">${msgs.map(m => `<div class="bubble ${m.sender === "admin" ? "a" : "c"}">${esc(m.body)}${links[m.id] ? `<br><a href="${links[m.id]}" target="_blank" rel="noopener">View attachment</a>` : ""}<small>${m.sender === "admin" ? "You" : "Customer"} · ${when(m.created_at)}</small></div>`).join("")}</div>
+    <form class="form" id="cf"><label>Reply to customer<textarea name="body" placeholder="Your reply shows on the customer's complaint page"></textarea></label>
+      <label>Status<select name="status">${["Open", "In progress", "Resolved", "Closed"].map(s => `<option ${s === c.status ? "selected" : ""}>${s}</option>`).join("")}</select></label>
+      <div class="acts" style="margin:0"><button class="btn" type="submit">Send reply and save</button></div><p class="msg" role="alert"></p></form>`);
+  const to = $("#toOrder"); if (to) to.addEventListener("click", e => { e.preventDefault(); openOrder(o.id); });
+  $("#cf").addEventListener("submit", async e => {
+    e.preventDefault(); const f = e.target, m = f.querySelector(".msg");
+    if (f.body.value.trim()) { const { error } = await sb.from("complaint_messages").insert({ complaint_id: id, sender: "admin", body: f.body.value.trim() }); if (error) { m.className = "msg err"; m.textContent = error.message; return; } }
+    let st = f.status.value;
+    if (f.body.value.trim() && st === "Open" && c.status === "Open") st = "In progress";
+    const { error: e2 } = await sb.from("complaints").update({ status: st }).eq("id", id);
+    if (e2) { m.className = "msg err"; m.textContent = e2.message; return; }
+    toast("Saved"); await loadAll(); openComplaint(id);
+  });
+}
+boot();
+</script>
+</body>
+</html>
