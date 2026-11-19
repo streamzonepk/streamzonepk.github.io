@@ -134,6 +134,9 @@ header.main{background:var(--ink);color:#fff;position:sticky;top:0;z-index:30;bo
 .card .art{height:150px;display:grid;place-items:center}
 .tile{width:108px;height:108px;border-radius:24px;display:grid;place-items:center;box-shadow:0 8px 18px rgba(20,33,61,.18)}
 .tile img{max-width:60%;max-height:60%}
+.tile{overflow:hidden;border:1px solid rgba(20,33,61,.08)}
+.logos div{overflow:hidden}
+.tile img.fill,.logos img.fill{max-width:none;max-height:none;width:100%;height:100%;object-fit:cover}
 .tile .mono{font-variation-settings:var(--wide);font-weight:800;font-size:30px;color:#fff;letter-spacing:-.02em}
 .card h3{margin:6px 0 0;font-size:17px;font-weight:700;line-height:1.25}
 .card h3 a{text-decoration:none}
@@ -543,39 +546,39 @@ const CATEGORIES = [
 /* Products — prices and descriptions from your current website.
 best:true shows it under "Best sellers". logo: file in /assets/logos/ (optional). color: logo tile colour. */
 const PRODUCTS = [
-{ id:"netflix", name:"Netflix", cat:"streaming", logo:"netflix.svg", color:"#141414", best:true,
+{ id:"netflix", name:"Netflix", cat:"streaming", logo:"netflix.svg", color:"#35191f", best:true,
 desc:"Movies and series. Price depends on the device you watch on.",
 feats:["Choose the device you'll watch on","Monthly plan"],
 options:[{label:"Mobile screen",price:400},{label:"Laptop screen",price:400},{label:"LED / Smart TV",price:550}] },
-{ id:"prime", name:"Prime Video", cat:"streaming", logo:"prime-video.svg", color:"#0F2A3D", best:true,
+{ id:"prime", name:"Prime Video", cat:"streaming", logo:"prime-video.svg", color:"#142b3b", best:true,
 desc:"Amazon's movies, series and originals.", price:200 },
-{ id:"hbo", name:"HBO Max", cat:"streaming", logo:"hbo-max.svg", color:"#1B0B45",
+{ id:"hbo", name:"HBO Max", cat:"streaming", logo:"hbo-max.svg", color:"#30203f",
 desc:"HBO series, Warner Bros. films and more.", price:450 },
-{ id:"disney", name:"Disney+", cat:"streaming", logo:"disney-plus.svg", color:"#0B1F5C",
+{ id:"disney", name:"Disney+", cat:"streaming", logo:"https://lumiere-a.akamaihd.net/v1/images/a8e5567d1658de062d95d079ebf536b0_4096x2309_6dedcc02.png?region=0%2C3%2C4096%2C2304", color:"#ffffff",
 desc:"Disney, Pixar, Marvel and Star Wars.", price:450 },
-{ id:"chaupal", name:"Chaupal", cat:"streaming", color:"#B5321C",
+{ id:"chaupal", name:"Chaupal", cat:"streaming", logo:"https://upload.wikimedia.org/wikipedia/commons/a/a0/Chaupal-logo.jpg", color:"#500052", fill:true,
 desc:"Punjabi, Haryanvi and Bhojpuri films and shows.", price:450 },
-{ id:"youtube", name:"YouTube Premium", cat:"streaming", color:"#C4170C", best:true,
+{ id:"youtube", name:"YouTube Premium", cat:"streaming", logo:"https://cdn.simpleicons.org/youtube/FF0033", color:"#ffffff", best:true,
 desc:"No ads, background play and YouTube Music.", price:300 },
-{ id:"iptv", name:"IPTV", cat:"streaming", logo:"iptv.svg", color:"#23315C", best:true,
+{ id:"iptv", name:"IPTV", cat:"streaming", logo:"iptv.svg", color:"#29203f", best:true,
 desc:"Live TV channels and on-demand movies on your TV or phone.", price:450,
 feats:["10,000+ live channels","50,000+ movies and seasons"] },
-{ id:"spotify", name:"Spotify Premium", cat:"music", logo:"spotify.svg", color:"#0E3B22", best:true,
+{ id:"spotify", name:"Spotify Premium", cat:"music", logo:"spotify.svg", color:"#143021", best:true,
 desc:"Ad-free music, offline downloads, unlimited skips.", price:399 },
-{ id:"chatgpt", name:"ChatGPT Plus", cat:"ai", logo:"openai.svg", color:"#E8F3EF", best:true,
+{ id:"chatgpt", name:"ChatGPT Plus", cat:"ai", logo:"https://upload.wikimedia.org/wikipedia/commons/6/66/OpenAI_logo_2025_%28symbol%29.svg?v=20261017", color:"#ffffff", best:true,
 desc:"OpenAI's paid ChatGPT plan with higher limits.", price:700 },
-{ id:"gemini", name:"Google AI Pro", cat:"ai", color:"#1A3F8F",
+{ id:"gemini", name:"Google AI Pro", cat:"ai", logo:"https://upload.wikimedia.org/wikipedia/commons/1/1d/Google_Gemini_icon_2025.svg", color:"linear-gradient(145deg,#f3e8ff,#dbeafe)",
 desc:"Google's paid Gemini plan.", price:1200, feats:["1000 credits monthly"] },
-{ id:"cursor", name:"Cursor AI", cat:"ai", color:"#1E1E1E",
+{ id:"cursor", name:"Cursor AI", cat:"ai", logo:"https://cursor.com/assets/images/logo.svg", color:"#ffffff",
 desc:"AI code editor for developers.", price:5500 },
-{ id:"elevenlabs", name:"ElevenLabs", cat:"ai", color:"#2B2B2B",
+{ id:"elevenlabs", name:"ElevenLabs", cat:"ai", logo:"https://11labs-nonprd-15f22c1d.s3.eu-west-3.amazonaws.com/0b9cd3e1-9fad-4a5b-b3a0-c96b0a1f1d2b/elevenlabs-logo-white.svg", color:"#111111",
 desc:"AI voice generation. Choose a credit package.",
 options:[{label:"Smaller credit package",price:2500},{label:"Larger credit package",price:3300}] },
-{ id:"capcut", name:"CapCut Pro", cat:"creative", logo:"capcut.svg", color:"#F2F2F2", best:true,
+{ id:"capcut", name:"CapCut Pro", cat:"creative", logo:"capcut.svg", color:"#ffffff", best:true,
 desc:"Video editing with pro effects and no watermark.", price:600 },
-{ id:"canva", name:"Canva Edu", cat:"creative", color:"#2F5DCB", best:true,
+{ id:"canva", name:"Canva Edu", cat:"creative", logo:"https://static.canva.com/web/images/8439b51bb7a19f6e65ce1064bc37c197.svg", color:"#ffffff", best:true,
 desc:"Canva's premium design features.", price:280 },
-{ id:"nordvpn", name:"NordVPN", cat:"vpn", color:"#1B3A7A",
+{ id:"nordvpn", name:"NordVPN", cat:"vpn", logo:"https://cdn.simpleicons.org/nordvpn/4687FF", color:"#ffffff",
 desc:"VPN for private browsing on your devices.", price:400 },
 ];
 /* ---------- nothing below needs editing ---------- */
@@ -592,7 +595,7 @@ const light = hex => { const n = parseInt(hex.slice(1),16); return ((n>>16)*299 
 const store = { get(k,d){ try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch(e){ return d; } }, set(k,v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} } };
 function tile(p){
 const mono = `<span class="mono" style="${light(p.color) ? "color:#14213D" : ""}">${initials(p.name)}</span>`;
-const inner = p.logo ? `<img src="/assets/logos/${p.logo}" alt="" loading="lazy" onerror="this.outerHTML=this.dataset.f" data-f='${mono.replace(/'/g,"&#39;")}'>` : mono;
+const inner = p.logo ? `<img src="${/^https?:/.test(p.logo) ? p.logo : "/assets/logos/" + p.logo}" alt="" loading="lazy" class="${p.fill ? "fill" : ""}" onerror="this.outerHTML=this.dataset.f" data-f='${mono.replace(/'/g,"&#39;")}'>` : mono;
 return `<span class="tile" style="background:${p.color}">${inner}</span>`;
 }
 /* static bits */
