@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /admin.html
-Disallow: /supabase-config.js
+Disallow: /admin-shop.html
 
 Sitemap: https://streamzonepk.github.io/sitemap.xml
