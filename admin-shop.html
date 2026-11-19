@@ -229,7 +229,7 @@ async function openOrder(id){
 }
 
 async function openComplaint(id){
-  const c = complaints.find(x => x.id === id);
+  const c = complaints.find(x => x.id === id), initial = c.status;
   const { data: msgs, error } = await sb.from("complaint_messages").select("*").eq("complaint_id", id).order("created_at");
   if (error) return toast(error.message);
   const o = orders.find(x => x.order_ref === c.order_ref);
@@ -246,7 +246,7 @@ async function openComplaint(id){
     e.preventDefault(); const f = e.target, m = f.querySelector(".msg");
     if (f.body.value.trim()) { const { error } = await sb.from("complaint_messages").insert({ complaint_id: id, sender: "admin", body: f.body.value.trim() }); if (error) { m.className = "msg err"; m.textContent = error.message; return; } }
     let st = f.status.value;
-    if (f.body.value.trim() && st === "Open" && c.status === "Open") st = "In progress";
+    if (f.body.value.trim() && st === "Open" && initial === "Open") st = "In progress";
     const { error: e2 } = await sb.from("complaints").update({ status: st }).eq("id", id);
     if (e2) { m.className = "msg err"; m.textContent = e2.message; return; }
     toast("Saved"); await loadAll(); openComplaint(id);
