@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /admin.html
 Disallow: /admin-shop.html
+Disallow: /ORDER-MANAGEMENT-SETUP.md
 
 Sitemap: https://streamzonepk.github.io/sitemap.xml
