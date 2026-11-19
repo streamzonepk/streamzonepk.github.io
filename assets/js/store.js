@@ -4,8 +4,8 @@
 /* ====== YOUR PAYMENT DETAILS (shown at checkout and on the order page) ======
    Fill in title and number. Leave number "" to tell customers you'll send it on WhatsApp. */
 const PAYMENT_ACCOUNTS = {
-  Easypaisa: { title: "", number: "" },
-  JazzCash:  { title: "", number: "" },
+  Easypaisa: { title: "Muhammad Afaq", number: "03094839648" },
+  JazzCash:  { title: "Muhammad Afaq", number: "03094839648" },
 };
 /* ============================================================================ */
 
