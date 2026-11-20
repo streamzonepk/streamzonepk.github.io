@@ -773,5 +773,6 @@ function toast(msg){ const t = $("#toast"); t.textContent = msg; t.classList.add
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase-config.js"></script>
 <script src="assets/js/store.js?v=4"></script>
+<script>if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("/sw.js").catch(() => {}));</script>
 </body>
 </html>
