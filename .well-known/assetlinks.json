@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "pk.streamzone.app",
+      "sha256_cert_fingerprints": [
+        "0C:B4:FB:81:0A:1F:81:97:12:BB:18:8C:E4:D8:B3:E4:96:0D:29:C0:14:61:80:84:CD:42:D2:14:F0:F0:C0:A6"
+      ]
+    }
+  }
+]
