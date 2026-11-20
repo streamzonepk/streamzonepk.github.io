@@ -116,6 +116,7 @@ header.main{background:var(--ink);color:#fff;position:sticky;top:0;z-index:30;bo
 /* ---------- section heads ---------- */
 .sec{padding-top:40px}
 .sh{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:16px}
+.shs{margin:4px 0 0;color:var(--muted);font-size:14.5px}
 .sh h2{margin:0;font-weight:800;font-size:clamp(21px,2.3vw,27px);letter-spacing:-.01em}
 .sh a,.sh button{color:#B87600;font-weight:700;font-size:14px;text-decoration:none;background:none;border:0;cursor:pointer;white-space:nowrap}
 .sh a:hover,.sh button:hover{text-decoration:underline}
@@ -380,26 +381,24 @@ body{padding-bottom:64px}
 <div><svg><use href="#chat"/></svg><span><b>Order support</b><small>Same WhatsApp number</small></span></div>
 </div>
 </section>
-<section class="sec" aria-labelledby="h-cats">
-<div class="sh"><h2 id="h-cats">Categories</h2><a href="#all" data-filter="">View all products</a></div>
-<div class="catrow" id="catrow"></div>
+<div id="all" style="scroll-margin-top:96px">
+<section class="sec" id="cat-ent" aria-labelledby="h-ent" style="scroll-margin-top:96px">
+<div class="sh"><div><h2 id="h-ent">Entertainment</h2><p class="shs">Streaming, live TV and music</p></div></div>
+<div class="grid" id="grid-ent"></div>
 </section>
-<section class="sec" aria-labelledby="h-ai">
-<div class="sh"><h2 id="h-ai">AI tools and creative apps</h2><a href="#all" data-filter="ai">View all</a></div>
-<div class="grid" id="aiGrid"></div>
+<section class="sec" id="cat-ai" aria-labelledby="h-aic" style="scroll-margin-top:96px">
+<div class="sh"><div><h2 id="h-aic">AI tools and creative apps</h2><p class="shs">AI assistants, voice, video editing and design</p></div></div>
+<div class="grid" id="grid-ai"></div>
 </section>
-<section class="sec" aria-labelledby="h-best">
-<div class="sh"><h2 id="h-best">Best sellers</h2><a href="#all" data-filter="">View all</a></div>
-<div class="grid" id="bestGrid"></div>
+<section class="sec" id="cat-vpn" aria-labelledby="h-vpn" style="scroll-margin-top:96px">
+<div class="sh"><div><h2 id="h-vpn">Privacy and VPN</h2><p class="shs">Browse privately and securely on your devices</p></div></div>
+<div class="grid" id="grid-vpn"></div>
 </section>
-<section class="sec" aria-labelledby="h-stream">
-<div class="sh"><h2 id="h-stream">Streaming and entertainment</h2><a href="#all" data-filter="streaming">View all</a></div>
-<div class="grid" id="streamGrid"></div>
-</section>
-<section class="sec" id="all" aria-labelledby="h-all" style="scroll-margin-top:96px">
-<div class="sh"><h2 id="h-all">All products</h2><button id="clearFilter" hidden>Show all products</button><a href="/products/">Compare all prices</a></div>
+<section class="sec" id="results" aria-labelledby="h-all" hidden>
+<div class="sh"><h2 id="h-all">Results</h2><button id="clearFilter">Show all products</button></div>
 <div class="grid" id="allGrid"></div>
 </section>
+</div>
 <section class="sec" aria-labelledby="h-ex">
 <div class="sh"><h2 id="h-ex">Explore more</h2></div>
 <div class="explore">
@@ -552,7 +551,7 @@ const CATEGORIES = [
 { id:"vpn",       name:"VPN",           bg:"#E1EEF8", fg:"#1B5A8A", icon:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="m9 12 2 2 4-4"/>' },
 ];
 /* Products — prices and descriptions from your current website.
-best:true shows it under "Best sellers". logo: file in /assets/logos/ (optional). color: logo tile colour. */
+best:true adds a "Best seller" badge. logo: file in /assets/logos/ (optional). color: logo tile colour. */
 const PRODUCTS = [
 { id:"netflix", name:"Netflix", cat:"streaming", logo:"netflix.svg", color:"#35191f", best:true,
 desc:"Movies and series. Price depends on the device you watch on.",
@@ -610,10 +609,17 @@ return `<span class="tile" style="background:${p.color}">${inner}</span>`;
 $("#marq").innerHTML = [...ANNOUNCEMENTS, ...ANNOUNCEMENTS].map(t => `<span><svg><use href="#bolt"/></svg>${esc(t)}</span>`).join("");
 $("#bannerLogos").innerHTML = PRODUCTS.slice(0,12).map(p => `<div style="background:${p.color}">${tile(p).replace(/^<span class="tile"[^>]*>|<\/span>$/g,"")}</div>`).join("");
 const catCount = id => PRODUCTS.filter(p => p.cat === id).length;
-$("#catrow").innerHTML = CATEGORIES.map(c =>
+const GROUPS = [
+{ id:"ent", name:"Entertainment", cats:["streaming","music"] },
+{ id:"ai",  name:"AI tools and creative apps", cats:["ai","creative"] },
+{ id:"vpn", name:"Privacy and VPN", cats:["vpn"] },
+];
+const groupOf = cat => GROUPS.find(g => g.cats.includes(cat)) || GROUPS[0];
+const groupCount = g => PRODUCTS.filter(p => g.cats.includes(p.cat)).length;
+if ($("#catrow")) $("#catrow").innerHTML = CATEGORIES.map(c =>
 `<button class="cat" data-filter="${c.id}"><span class="ico" style="background:${c.bg};color:${c.fg}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">${c.icon}</svg></span>${esc(c.name)}<small>${catCount(c.id)} ${catCount(c.id) === 1 ? "product" : "products"}</small></button>`).join("");
-$("#catmenu").innerHTML = `<a href="#all" data-filter="">All products<span>${PRODUCTS.length}</span></a>` + CATEGORIES.map(c => `<a href="#all" data-filter="${c.id}">${esc(c.name)}<span>${catCount(c.id)}</span></a>`).join("");
-$("#footCats").innerHTML = `<a href="#all" data-filter="">All products</a>` + CATEGORIES.map(c => `<a href="#all" data-filter="${c.id}">${esc(c.name)}</a>`).join("");
+$("#catmenu").innerHTML = GROUPS.map(g => `<a href="#cat-${g.id}" data-filter="${g.id}">${esc(g.name)}<span>${groupCount(g)}</span></a>`).join("");
+$("#footCats").innerHTML = GROUPS.map(g => `<a href="#cat-${g.id}" data-filter="${g.id}">${esc(g.name)}</a>`).join("");
 $("#track").innerHTML = [...PRODUCTS, ...PRODUCTS].map(p => `<span>${esc(p.name)}</span>`).join("");
 $("#popList").innerHTML = PRODUCTS.filter(p => p.cat === "streaming" || p.cat === "music" || p.cat === "vpn").map(p => `<a href="/products/${p.id}.html">${esc(p.name)} price in Pakistan</a>`).join("");
 $("#aiList").innerHTML = PRODUCTS.filter(p => p.cat === "ai" || p.cat === "creative").map(p => `<a href="/products/${p.id}.html">${esc(p.name)} price in Pakistan</a>`).join("");
@@ -635,19 +641,20 @@ return `<article class="card" data-view="${p.id}">
 </article>`;
 }
 function renderGrids(){
-$("#aiGrid").innerHTML = PRODUCTS.filter(p => p.cat === "ai" || p.cat === "creative").slice(0,4).map(card).join("");
-$("#bestGrid").innerHTML = PRODUCTS.filter(p => p.best).slice(0,8).map(card).join("");
-$("#streamGrid").innerHTML = PRODUCTS.filter(p => p.cat === "streaming").slice(0,4).map(card).join("");
+GROUPS.forEach(g => { $("#grid-" + g.id).innerHTML = PRODUCTS.filter(p => g.cats.includes(p.cat)).map(card).join(""); });
 renderAll();
 }
 let filter = "", query = "";
 function renderAll(){
 const q = query.trim().toLowerCase();
-const list = PRODUCTS.filter(p => (!filter || p.cat === filter || (filter === "ai" && p.cat === "creative")) && (!q || (p.name + " " + p.desc + " " + catOf(p.cat).name).toLowerCase().includes(q)));
+const searching = !!q;
+GROUPS.forEach(g => { $("#cat-" + g.id).hidden = searching; });
+$("#results").hidden = !searching;
+if (!searching) return;
+const list = PRODUCTS.filter(p => (p.name + " " + p.desc + " " + catOf(p.cat).name + " " + groupOf(p.cat).name).toLowerCase().includes(q));
 $("#allGrid").innerHTML = list.length ? list.map(card).join("")
 : `<div class="empty" style="grid-column:1/-1;background:#fff;border-radius:14px"><b>No products match “${esc(query)}”</b>Try another name, or <a href="${waLink("Assalam o Alaikum, do you have " + query + "?")}" target="_blank" rel="noopener">ask us on WhatsApp</a> if you need it.</div>`;
-$("#h-all").textContent = q ? `Results for “${query}”` : (filter ? catOf(filter).name : "All products");
-$("#clearFilter").hidden = !(filter || q);
+$("#h-all").textContent = `Results for “${query}”`;
 }
 renderGrids();
 const doSearch = () => { query = $("#q").value; filter = ""; renderAll(); $("#all").scrollIntoView(); };
@@ -744,7 +751,9 @@ else if (t.dataset.view){ e.preventDefault(); openProduct(t.dataset.view); }
 else if (t.hasAttribute("data-open-cart")){ e.preventDefault(); openLayer($("#drawer")); }
 else if (t.hasAttribute("data-open-saved")){ e.preventDefault(); openLayer($("#savedDrawer")); }
 else if (t.hasAttribute("data-close")){ closeLayers(); }
-else if (t.dataset.filter !== undefined){ filter = t.dataset.filter; query = ""; $("#q").value = ""; renderAll(); catmenu.classList.remove("open"); if (t.tagName === "BUTTON") $("#all").scrollIntoView(); }
+else if (t.dataset.filter !== undefined){ query = ""; $("#q").value = ""; renderAll(); catmenu.classList.remove("open");
+const f = t.dataset.filter, g = GROUPS.find(x => x.id === f) || (f ? groupOf(f) : null);
+setTimeout(() => (g ? $("#cat-" + g.id) : $("#all")).scrollIntoView(), 80); }
 else if (t.dataset.inc){ cart[+t.dataset.inc].qty++; store.set("sz_cart", cart); renderCart(); }
 else if (t.dataset.dec){ const l = cart[+t.dataset.dec]; l.qty--; if (l.qty < 1) cart.splice(+t.dataset.dec, 1); store.set("sz_cart", cart); renderCart(); }
 else if (t.dataset.rm){ cart.splice(+t.dataset.rm, 1); store.set("sz_cart", cart); renderCart(); }
