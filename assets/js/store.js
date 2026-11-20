@@ -1,4 +1,4 @@
-/* Stream Zone store: accounts, product pages, cart, checkout, orders and complaints.
+/* Stream Zone store v4: accounts, product pages, cart, checkout, orders and complaints.
    Runs after the homepage script and reuses its products, cart and helpers. */
 
 /* ====== YOUR PAYMENT DETAILS (shown at checkout and on the order page) ======
@@ -29,6 +29,13 @@ const go = h => { if (location.hash === h) route(); else location.hash = h; };
 const saveCart = () => { store.set("sz_cart", cart); renderCart(); };
 const optLabel = (p, i) => p.options ? p.options[i].label : "";
 const needLogin = next => { go("#/login?next=" + encodeURIComponent(next)); };
+/* open a private file in a new tab; the tab is opened before the await so phones don't block it */
+async function openSigned(path){
+  const w = window.open("", "_blank");
+  const { data, error } = await sb.storage.from("receipts").createSignedUrl(path, 300);
+  if (error) { if (w) w.close(); return toast(errText(error)); }
+  if (w) { w.opener = null; w.location = data.signedUrl; } else location.href = data.signedUrl;
+}
 function errText(e){ const m = (e && (e.message || e.error_description)) || String(e); return m.replace(/^.*?exception:\s*/i, ""); }
 function payBox(method){
   const a = PAYMENT_ACCOUNTS[method] || {};
@@ -70,7 +77,9 @@ window.addEventListener("click", e => {
 }, true);
 
 /* ---------- router ---------- */
-function show(viewOn){ V.hidden = !viewOn; MAIN.hidden = viewOn; }
+const HOME_TITLE = document.title;
+const ROUTES = ["product","cart","login","register","forgot","reset","checkout","orders","complaints","account"];
+function show(viewOn){ V.hidden = !viewOn; MAIN.hidden = viewOn; if (!viewOn) document.title = HOME_TITLE; }
 async function route(){
   const h = location.hash || "";
   if (!h.startsWith("#/")) {
@@ -81,6 +90,7 @@ async function route(){
   show(true); window.scrollTo(0, 0);
   const [path] = h.slice(1).split("?");
   const seg = path.split("/").filter(Boolean);
+  if (!ROUTES.includes(seg[0])) { history.replaceState(null, "", location.pathname + location.search); show(false); return; }
   try {
     if (seg[0] === "product") return viewProduct(seg[1]);
     if (seg[0] === "cart") return viewCart();
@@ -89,12 +99,12 @@ async function route(){
     if (!sb) { V.innerHTML = `<div class="panel">Accounts are not available right now. Please order on WhatsApp.</div>`; return; }
     if (!session) return needLogin(path);
     if (seg[0] === "checkout") return viewCheckout();
-    if (seg[0] === "orders" && seg[1]) return viewOrder(decodeURIComponent(seg[1]));
-    if (seg[0] === "complaints" && seg[1] === "new") return viewNewComplaint();
-    if (seg[0] === "complaints" && seg[1]) return viewComplaint(decodeURIComponent(seg[1]));
-    if (seg[0] === "account") return viewAccount(seg[1] || "dashboard");
+    if (seg[0] === "orders" && seg[1]) return await viewOrder(decodeURIComponent(seg[1]));
+    if (seg[0] === "complaints" && seg[1] === "new") return await viewNewComplaint();
+    if (seg[0] === "complaints" && seg[1]) return await viewComplaint(decodeURIComponent(seg[1]));
+    if (seg[0] === "account") return await viewAccount(seg[1] || "dashboard");
     go("#/account");
-  } catch (e) { V.innerHTML = `<div class="panel"><p class="msg err">${esc(errText(e))}</p></div>`; }
+  } catch (e) { V.innerHTML = `<div class="panel"><p class="msg err">Something went wrong: ${esc(errText(e))}</p><a class="btn dark" href="javascript:location.reload()">Try again</a></div>`; }
 }
 window.addEventListener("hashchange", route);
 
@@ -364,9 +374,9 @@ async function viewOrder(ref){
         ${!stopped && o.admin_note ? `<p class="msg info" style="margin-top:14px">${esc(o.admin_note)}</p>` : ""}
       </section>
       ${o.delivery_details ? `<section class="panel"><h2>Your login details</h2><p class="sub">Keep these private. Don't change the password or profile on shared accounts.</p><div class="deliv">${esc(o.delivery_details)}</div></section>` : ""}
-      ${canPay ? `<section class="panel" id="paySec"><h2>${o.receipt_path ? "Payment receipt" : "Pay and upload your receipt"}</h2>
-        <p class="sub">${o.receipt_path ? "We've received your receipt and are checking your payment. You can replace it if you uploaded the wrong file." : `Send <b>${money(o.total)}</b> with ${esc(o.payment_method)}, then upload a clear screenshot of the receipt.`}</p>
-        ${o.receipt_path ? "" : payBox(o.payment_method)}
+      ${canPay ? `<section class="panel" id="paySec"><h2>${st === "Under review" ? "Payment receipt" : "Pay and upload your receipt"}</h2>
+        <p class="sub">${st === "Under review" ? "We've received your receipt and are checking your payment. You can replace it if you uploaded the wrong file." : st === "Rejected" ? `Check that you sent <b>${money(o.total)}</b> to the account below, then upload a clear screenshot of the receipt.` : `Send <b>${money(o.total)}</b> with ${esc(o.payment_method)}, then upload a clear screenshot of the receipt.`}</p>
+        ${st === "Under review" ? "" : payBox(o.payment_method)}
         <div class="upload" style="margin-top:14px"><input type="file" id="rcpt" accept="image/*,application/pdf"><small class="muted">JPG, PNG or PDF, up to 5 MB</small><button class="btn" id="upBtn" type="button">Upload receipt</button><p class="msg" id="upMsg" role="alert"></p></div>
         ${o.receipt_path ? `<p style="margin:12px 0 0"><button class="btn sm outline" id="seeRcpt" type="button">View uploaded receipt</button></p>` : ""}
       </section>` : (o.receipt_path ? `<section class="panel"><h2>Payment receipt</h2><button class="btn sm outline" id="seeRcpt" type="button">View uploaded receipt</button></section>` : "")}
@@ -383,7 +393,7 @@ async function viewOrder(ref){
     </aside>
   </div>`;
   const see = V.querySelector("#seeRcpt");
-  if (see) see.addEventListener("click", async () => { const { data, error } = await sb.storage.from("receipts").createSignedUrl(o.receipt_path, 300); if (error) return toast(errText(error)); window.open(data.signedUrl, "_blank", "noopener"); });
+  if (see) see.addEventListener("click", () => openSigned(o.receipt_path));
   const up = V.querySelector("#upBtn");
   if (up) up.addEventListener("click", async () => {
     const file = V.querySelector("#rcpt").files[0], m = V.querySelector("#upMsg");
@@ -510,7 +520,7 @@ async function viewComplaint(ref){
     ${["Resolved", "Closed"].includes(c.status) ? `<p class="msg ok">This complaint is marked ${esc(c.status.toLowerCase())}. Reply below if the problem is back.</p>` : `<p class="msg info">We usually reply within a few hours. For urgent issues, <a href="${waLink("Assalam o Alaikum, about complaint " + c.ticket_ref + ".")}" target="_blank" rel="noopener">message us on WhatsApp</a>.</p>`}
     <form class="form" id="rForm" style="margin-top:16px" novalidate><label>Your reply<textarea name="body" maxlength="3000" required></textarea></label><div><button class="btn dark" type="submit">Send reply</button></div><p class="msg" role="alert"></p></form>
   </div>`;
-  V.querySelectorAll("[data-att]").forEach(a => a.addEventListener("click", async e => { e.preventDefault(); const { data, error } = await sb.storage.from("receipts").createSignedUrl(a.dataset.att, 300); if (error) return toast(errText(error)); window.open(data.signedUrl, "_blank", "noopener"); }));
+  V.querySelectorAll("[data-att]").forEach(a => a.addEventListener("click", e => { e.preventDefault(); openSigned(a.dataset.att); }));
   const f = V.querySelector("#rForm");
   f.addEventListener("submit", async e => {
     e.preventDefault(); const m = f.querySelector(".msg");
